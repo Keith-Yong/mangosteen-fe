@@ -1,21 +1,31 @@
+
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
+//setup的作用官方文档 https://cn.vuejs.org/api/sfc-script-setup.html#basic-syntax
+import { ref } from 'vue';
+
+//  ref（）的作用官方文档
+// https://cn.vuejs.org/guide/essentials/reactivity-fundamentals.html#ref-unwrapping-in-templates
+const count = ref(0)
+const add1 = () => {
+  
+  count.value += 1
+}
 </script>
 
+
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <div>
+    <button @click="add1">
+      +1
+    </button>
+  </div> 
+    <!-- 这里不能使用count.value -->
+    <!-- 当 ref 在模板中作为顶层属性被访问时，它们会被自动“解包”，所以不需要使用 .value -->
+    
+  <div>
+    
+  </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+ 
+
