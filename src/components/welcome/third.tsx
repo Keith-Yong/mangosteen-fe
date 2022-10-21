@@ -2,8 +2,8 @@ import { defineComponent } from "vue";
 
 export const Third = defineComponent({
     setup:(props,context) =>{ 
-        return () => (
+        return () => <>
             <div>Third</div>
-          )
+            </>
     }
 })
