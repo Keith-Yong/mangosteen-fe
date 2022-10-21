@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import App from './App.vue'
+// import App from './App.vue'
 import { App } from './App'
 import { Foo } from './views/Foo'
 import { Bar } from './views/Bar'
