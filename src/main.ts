@@ -3,7 +3,9 @@ import { createApp } from 'vue'
 import { App } from './App'
 import { Foo } from './views/Foo'
 import { Bar } from './views/Bar'
-import  {createRouter,createWebHashHistory} from 'vue-router'
+import  {createRouter, createWebHashHistory} from 'vue-router'
+
+
 
 // 2.定义路由
 const routes =  [
@@ -28,5 +30,6 @@ const app = createApp(App)
 // 5. 创建并挂载根实例
 app.use(router)
 // 挂载
+console.log(1)
 app.mount('#app')
 

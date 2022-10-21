@@ -3,8 +3,15 @@ import { defineComponent } from "vue";
 // 
 export const Bar = defineComponent({
     setup: (props,context) => {
-        return () => {
-            <div>Bar</div>
-        }
+
+        return () => <>
+        <div>
+            Bar
+        </div>
+        <div>sss</div>
+        </>
+        
+
+
     }
 })
