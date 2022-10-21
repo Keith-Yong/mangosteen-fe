@@ -8,7 +8,7 @@ export const Bar = defineComponent({
         <div>
             Bar
         </div>
-        <div>sss</div>
+        
         </>
         
 
