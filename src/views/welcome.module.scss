@@ -1,0 +1,30 @@
+.wrapper {
+    height: 100vh;
+    
+    display: flex;
+    flex-direction: column;
+    > header {
+         flex-shrink: 0;
+         display: flex;
+        //  设置header页面居中
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
+        >img {
+            width: 65px;
+            height: 70px;
+        }
+    }
+    >main {
+        flex-grow: 1;
+        
+    }
+    >footer{
+        flex-shrink: 0;
+       
+    }
+
+
+    }
+
+    
