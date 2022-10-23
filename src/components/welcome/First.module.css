@@ -9,13 +9,19 @@
   background: var(--welcome-card-bg);
   border-radius: 8px;
   padding: 16px;
-  margin: 16px;
+  margin: 0 16px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
-.wrapper > .card > .img {
+.wrapper > .card > h2 {
+  margin-top: 40px;
+}
+
+.wrapper > .card > img {
   width: 128px;
   height: 130px;
 }
@@ -26,6 +32,7 @@
   align-items: center;
   margin: 0 16px;
   font-size: 32px;
+  padding: 24px 0;
   color: var(--welcome-text);
 }
 

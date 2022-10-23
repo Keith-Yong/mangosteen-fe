@@ -8,7 +8,7 @@ export const First = defineComponent({
         <div class={s.wrapper}>
           <div class={s.card}>
             <img class={s.pig} src={pig}/>
-
+            <h2>会赚钱<br />还要会省钱</h2>
           </div>
 
           <div class={s.actions}>

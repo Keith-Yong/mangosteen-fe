@@ -7,12 +7,18 @@
         background: var(--welcome-card-bg);
         border-radius: 8px;
         padding: 16px;
-        margin: 16px;
+        // 处理下一页按钮padding设置后仍然上下不对等，处理方法：margin设为0
+        margin: 0 16px;
         // 居中
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        > .img  {
+        text-align: center;
+        > h2 {
+            margin-top: 40px;
+        }
+        > img  {
             width: 128px;
             height: 130px;
 
@@ -24,6 +30,8 @@
         align-items: center;
         margin: 0 16px;
         font-size: 32px;
+        padding: 24px 0;
+
         
         color: var( --welcome-text);
         > .fake {visibility: hidden}
