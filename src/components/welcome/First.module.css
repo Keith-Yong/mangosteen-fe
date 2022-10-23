@@ -1,0 +1,3 @@
+.wrapper > .card {
+  background: var(--welcome-card-bg);
+}

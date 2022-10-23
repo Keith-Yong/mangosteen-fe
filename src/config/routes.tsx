@@ -3,10 +3,10 @@ import { Foo } from "../views/Foo";
 import {RouteRecordRaw} from "vue-router"
 
 import { Welcome } from "../views/Welcome";
-import { First } from "../components/welcome/first";
-import { Forth } from "../components/welcome/forth";
-import { Second } from "../components/welcome/second";
-import { Third } from "../components/welcome/third";
+import { First } from "../components/welcome/First";
+import { Forth } from "../components/welcome/Forth";
+import { Second } from "../components/welcome/Second";
+import { Third } from "../components/welcome/Third";
 // 新建routes.tsx存放路由
 //  定义组件
 // RouteRecordRaw获得配置子路由的属性children
