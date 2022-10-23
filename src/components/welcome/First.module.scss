@@ -1,5 +1,9 @@
 .wrapper{
+    flex-grow: 1;
+    display:flex ;
+    flex-direction: column;
     >.card {
+        flex-grow: 1;
         background: var(--welcome-card-bg);
         border-radius: 8px;
         padding: 16px;
@@ -20,7 +24,8 @@
         align-items: center;
         margin: 0 16px;
         font-size: 32px;
-        color: var(--welcome-card-bg);
+        
+        color: var( --welcome-text);
         > .fake {visibility: hidden}
 
     }

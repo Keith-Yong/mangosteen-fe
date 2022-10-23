@@ -13,7 +13,7 @@ export const Welcome = defineComponent({
             <img src={Logo}  />
             <h1>海豚记账</h1>
         </header>
-        <main><RouterView/></main>
+        <main class={s.main}><RouterView/></main>
         
         
         </div>
