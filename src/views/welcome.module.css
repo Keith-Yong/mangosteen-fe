@@ -20,6 +20,10 @@
   height: 70px;
 }
 
+.wrapper > header > h1 {
+  margin-bottom: 30px;
+}
+
 .wrapper > main {
   flex-grow: 1;
   display: flex;
