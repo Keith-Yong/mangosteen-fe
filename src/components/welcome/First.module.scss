@@ -2,16 +2,18 @@
     flex-grow: 1;
     display:flex ;
     flex-direction: column;
+    padding-bottom: var(--welcome-nav-gap);
     >.card {
         flex-grow: 1;
         background: var(--welcome-card-bg);
         border-radius: 8px;
         padding: 16px;
         // 处理下一页按钮padding设置后仍然上下不对等，处理方法：margin设为0
-        margin: 0 16px;
+       
         // 居中
         display: flex;
         flex-direction: column;
+        
         justify-content: center;
         align-items: center;
         text-align: center;
@@ -25,15 +27,26 @@
         }
     }
     > .actions {
+        // 设置postision:fixed固定,必须把left和bottom设置成0
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: var(--z-index-bottom-nav);
+        background: var(--welcome-bg-end);
+        width: 100%;
+
+
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin: 0 16px;
-        font-size: 32px;
-        padding: 24px 0;
-
         
+        font-size: 24px;
+        height: var(--welcome-nav-height);
+        padding: 0 16px; 
+
+
         color: var( --welcome-text);
+        padding-bottom: var(--welcome-nav-gap);
         > .fake {visibility: hidden}
 
     }

@@ -5,7 +5,13 @@ import { routes } from './config/routes';
 
 import  {createRouter} from 'vue-router'
 import { history } from './shared/history';
-
+// 在main.js内
+// import VConsole from 'vconsole';
+// const isDebug = true;
+// 本地开发调试注入vConsole
+// if (isDebug) {
+//     new VConsole();
+// }
 
 
 // 4. 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
