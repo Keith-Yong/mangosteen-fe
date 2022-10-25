@@ -13,7 +13,7 @@ import { Third } from "../components/welcome/Third";
 export const routes:RouteRecordRaw[] =  [
     {path:'/',redirect:'/welcome'},
     {path:'/about',component:Bar},
-    {path: '/welcome',component: Welcome,
+    {path: '/welcome',component: Welcome,  
     children: [
       { path: '' ,redirect:'/welcome/1'},
       { path: '1', component: First, },
