@@ -7,7 +7,7 @@ export const WelcomeLayout = defineComponent({
     setup:(props,context) => {
         // 解构赋值获取插槽对象slots
         const {slots} = context 
-        return () => {
+        return () => (
             <div class={s.wrapper}>
                 <div class={s.card}>
                     
@@ -25,7 +25,7 @@ export const WelcomeLayout = defineComponent({
                 </div>
             </div>
 
-        }
+        )
 
     }
 })
