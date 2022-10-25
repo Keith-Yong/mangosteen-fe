@@ -15,7 +15,7 @@ export const Third = defineComponent({
           {/* 在这里定义底部的两个按钮路由标签 */}
           {/* 如何完成下一页在中间，跳过在左边：做两个跳过，左边的隐藏处理 */}
           <RouterLink class={s.fake} to="/start">跳过</RouterLink>
-          <RouterLink to="welcome/4">下一页</RouterLink>
+          <RouterLink to="/welcome/4">下一页</RouterLink>
           <RouterLink to="/start">跳过</RouterLink>
           
           </div>
