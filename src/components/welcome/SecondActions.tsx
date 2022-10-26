@@ -1,4 +1,4 @@
-// 本文件 是将action封装成单独的组件，引入到Second组件中使用
+// 本文件 是将action封装成单独的组件，引入到Second组件
 import s from './welcome.module.scss';
 import { RouterLink } from 'vue-router';
 import { FunctionalComponent } from 'vue';
