@@ -10,7 +10,12 @@ export const Welcome = defineComponent({
         return () => <div class={s.wrapper}>
        
         <header>
-            <img src={Logo}  />
+            
+            <svg>
+                <use xlinkHref='#dolphin'></use>
+            </svg>
+
+            {/* <img src={Logo}  /> */}
             <h1>海豚记账</h1>
         </header>
         {/* <main class={s.main}><RouterView/></main> */}
@@ -20,10 +25,11 @@ export const Welcome = defineComponent({
                 {/* 一个箭头函数，ts语法把组件X传入后，加入动画效果 */}
             {({ Component: X, route: R }: { Component: VNode, route: RouteLocationNormalizedLoaded }) =>
             <Transition 
-                enterFromClass={s.slide_fade_enter_from}
-                enterActiveClass={s.slide_fade_enter_active}
-                leaveToClass={s.slide_fade_leave_to} 
-                leaveActiveClass={s.slide_fade_leave_active}>
+                enterFromClass={s.slide_fade_enter_from} //卡片从右侧进入的样式
+                enterActiveClass={s.slide_fade_enter_active}//卡片位于页面当中的样式
+                leaveToClass={s.slide_fade_leave_to} //卡片从左侧移出的样式
+                //卡片位于页面当中的样式
+                leaveActiveClass={s.slide_fade_leave_active}> 
               
                 {/* X指的是路由传进来的组件，写在这里是把动画加在组件中 */}
               {X}

@@ -5,6 +5,9 @@ import { routes } from './config/routes';
 
 import  {createRouter} from 'vue-router'
 import { history } from './shared/history';
+
+
+import '@svgstore';
 // 在main.js内
 // import VConsole from 'vconsole';
 // const isDebug = true;
