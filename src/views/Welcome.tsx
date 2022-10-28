@@ -1,12 +1,24 @@
-import { defineComponent,h,Transition,VNode} from "vue";
+import { defineComponent,h,ref,Transition,VNode, watchEffect} from "vue";
 import {RouteLocationNormalizedLoaded,RouterView} from 'vue-router'
 import s from './Welcome.module.scss'
-import Logo from '../assets/icons/dolphin.svg'
+// import Logo from '../assets/icons/dolphin.svg'
+import { useSwipe } from "../hooks/useSwipe";
 // console.log(Logo)
 //  定义欢迎页的主页
 export const Welcome = defineComponent({
     setup:(props,context) => {
-        // s.wrapper为什么会对所有路由的样式都有影响？
+        // 通过ref获取main标签内所有的html元素
+        const main = ref<HTMLElement>()
+       
+        // main作为入参调用useSwipe函数获取返回值解构赋值获取
+        // 变量direction, swiping
+        const {direction, swiping} = useSwipe(main)
+        
+        // 类似于vue2的watch
+        watchEffect(() => {
+            console.log(swiping.value, direction.value)
+        })
+        
         return () => <div class={s.wrapper}>
        
         <header>
@@ -19,7 +31,7 @@ export const Welcome = defineComponent({
             <h1>海豚记账</h1>
         </header>
         {/* <main class={s.main}><RouterView/></main> */}
-        <main class={s.main}>
+        <main class={s.main} ref={main}>
             <RouterView name="main">
                 {/* vue3中动画组件要大写的Transition */}
                 {/* 一个箭头函数，ts语法把组件X传入后，加入动画效果 */}
