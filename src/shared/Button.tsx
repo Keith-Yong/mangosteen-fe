@@ -3,7 +3,8 @@
 import { defineComponent } from "vue";
 import s from './Button.module.scss'
 interface Props {
-    onClick: (e:MouseEvent) => void
+    // 设置onClick属性为可选
+    onClick?: (e:MouseEvent) => void
 }
 // Props??
 export const Button = defineComponent<Props>({
