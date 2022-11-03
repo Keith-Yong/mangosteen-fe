@@ -1,3 +1,4 @@
+
 import { defineComponent, PropType } from "vue";
 import { RouterLink } from "vue-router";
 import { Icon } from "./Icon";
@@ -16,11 +17,13 @@ export const Overlay = defineComponent({
         const close = () => {
             props.onClose?.()
         }
-        //  定义一个箭头函数，内容为空
+        //  定义一个箭头函数，内容暂时为空
         const onClickSignIn = () => { }
         return () => {
             return <>
             {/* //  返回html的结构 ,mask样式在scss文件中 close作为点击事件绑定的函数 ，点击后开启获取关闭弹层*/}
+            {/*onClick调用close函数  close函数调用onClose函数*/}
+            {/*close函数控制弹层开启关闭的问题  */}
                 <div class={s.mask} onClick={close}></div>
                 <div class={s.overlay}>
                     {/* 弹层的html结构  */}

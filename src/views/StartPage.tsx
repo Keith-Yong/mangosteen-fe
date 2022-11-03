@@ -1,4 +1,5 @@
 import { defineComponent, ref } from 'vue';
+import { RouterLink } from 'vue-router';
 import { Button } from '../shared/Button';
 import { Center } from '../shared/Center';
 import { FloatButton } from '../shared/FloatButton';
@@ -38,15 +39,22 @@ export const StartPage = defineComponent({
 
         </Center>
         <div class={s.button_wrapper}>
-          <Button class={s.button} >开始记账</Button>
+            {/* 给开始按钮标签添加路由 */}
+            <RouterLink to="/items/create"> 
+                <Button class={s.button} >开始记账</Button>
+            </RouterLink>
         </div>
+        {/* 给add按钮添加路由 */}
+        <RouterLink to="/items/create"> 
         <FloatButton iconName='add'/>
-        {/*refOverlayVisible参数为true是Overlay组件是否展示的条件  */}
-        {refOverlayVisible.value && 
-        // onclose函数会 重置refOverlayVisible的值
-        <Overlay onClose={ () => refOverlayVisible.value =false }/>
+        </RouterLink>
         
+        {/*refOverlayVisible参数的值是Overlay组件是否展示的条件，默认是false  */}
+        {refOverlayVisible.value && 
+        // onclose函数会 重置refOverlayVisible的值，
+        <Overlay onClose={ () => refOverlayVisible.value =false }/>
         }
+        
         
       </div>
     )
