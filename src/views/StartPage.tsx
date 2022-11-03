@@ -1,26 +1,34 @@
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { Button } from '../shared/Button';
 import { Center } from '../shared/Center';
 import { FloatButton } from '../shared/FloatButton';
 import { Icon } from '../shared/Icon';
 import { Navbar } from '../shared/Navbar';
+import { Overlay } from '../shared/Overlay';
 import s from './StartPage.module.scss';
 export const StartPage = defineComponent({
   setup: (props, context) => {
-    const onClick = () => {
-      console.log('hi')
-    }
+    
+        // 响应式数据：布尔值变量refOverlayVisible，初始为否
+        const refOverlayVisible = ref(false)
+        const onClickMenu = () => {
+        // 让响应式数据值可以自动重置
+        refOverlayVisible.value = !refOverlayVisible.value
+      }
+    
     return () => (
       <div>
         {/* 定义pig的图片以及按钮 */}
         
         {/* 引入Center组件和icon组件，构建pig svg图 需要在pig前加上后缀使得样式生效 */}
         {/* 引入Navabar组件 */}
-        {/* ??两个花括号是什么意思 */}
+        {/* !!两个花括号是什么意思,第一个是胡子语法，第二个大括号是Navbar组件规定的参数，需要传给Navbar组件中 */}
        <Navbar>{
             {
-                default:'海豚记账',
-                icon: <Icon name="menu" class={s.navIcon}/>
+                default:() => '海豚记账',
+                // menu标签点击后触发onClickMenu函数,
+                icon:() =>  <Icon name="menu" class={s.navIcon} onClick={onClickMenu} />
+               
             }
         }
        </Navbar>
@@ -30,9 +38,15 @@ export const StartPage = defineComponent({
 
         </Center>
         <div class={s.button_wrapper}>
-          <Button class={s.button} onClick={onClick}>开始记账</Button>
+          <Button class={s.button} >开始记账</Button>
         </div>
         <FloatButton iconName='add'/>
+        {/*refOverlayVisible参数为true是Overlay组件是否展示的条件  */}
+        {refOverlayVisible.value && 
+        // onclose函数会 重置refOverlayVisible的值
+        <Overlay onClose={ () => refOverlayVisible.value =false }/>
+        
+        }
         
       </div>
     )
