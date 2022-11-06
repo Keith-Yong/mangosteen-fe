@@ -2,7 +2,7 @@ import { defineComponent, PropType, ref } from "vue";
 import { Icon } from "../../shared/Icon";
 import s from './InputPad.module.scss';
 import { time } from '../../shared/time';
-import { DatetimePicker, Popup } from "vant";
+import { DatetimePicker,NumberKeyboard, Popup } from "vant";
 
 /**键盘数字 */
 export const InputPad =defineComponent({
