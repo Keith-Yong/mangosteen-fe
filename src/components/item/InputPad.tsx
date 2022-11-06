@@ -31,23 +31,27 @@ export const InputPad =defineComponent({
             
         ]
 
-        return () => <>
-        <div>
-            <span class={s.notes}>
-                <Icon name="date">
-                    <span>2022-01-01</span>
-                </Icon>
-            </span>
-            <span class={s.amount}>数字</span>
+        return () => 
+        <>
+            <div  class={s.dateAndAmount}>
+                <span class={s.date}>
+                    <Icon name="date" class={s.icon}/>
+                        <span>2022-01-01</span>
+                        </span>
+            
+                <span class={s.amount}>199.12</span>
+            </div>
             {/*  对buttons对象进行map函数处理返回新的Button列表 */}
             <div class={s.buttons}>
-            {buttons.map( button => 
-            <button onClick={button.onClick}>{button.text}</button>
-                )}
+                    {buttons.map( button => 
+                <button onClick={button.onClick}>
+                    {button.text}
+                </button>
+                    )}
             </div>
-
+            
            
-        </div>
+        
         </>
     }
 })

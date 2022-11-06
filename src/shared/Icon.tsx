@@ -1,8 +1,9 @@
+/**制作Icon组件 */
 import { defineComponent,defineProps, PropType } from "vue";
 import s from './Icon.module.scss'
 // 定义变量IconName的类型，包含所有的Svg图片
-export type IconName = 'add'|'chart'|'clock'|'cloud'|'dolphin'|'pig'|'menu'| 'charts' | 'notify' | 'export'
-| 'left' | 'date' |'notes'
+export type IconName = 'add'|'chart'|'clock'|'cloud'|'dolphin'|'pig'|'menu'| 'charts' | 'notify' | 'export'| 'left' | 'date' |'notes'
+
 export const Icon = defineComponent({
     // 在这里规定Icon组件对象属性必传name属性，值的类型必须是IconName中规定的类型
     props: {
@@ -29,4 +30,3 @@ export const Icon = defineComponent({
     }
 })
 
-//制作Icon组件
