@@ -1,6 +1,7 @@
-import { defineComponent, PropType } from "vue";
+import { defineComponent, PropType, ref } from "vue";
 import { Icon } from "../../shared/Icon";
-import s from './InputPad.module.scss'
+import s from './InputPad.module.scss';
+import { time } from '../../shared/time';
 
 /**键盘数字 */
 export const InputPad =defineComponent({
@@ -10,6 +11,8 @@ export const InputPad =defineComponent({
         }
     },
     setup: (props,context) => {
+        const refDate = ref<Date>() //？？??
+        const now = new Date()//？？??
         //  按键上的按钮,
         const buttons = [
             {text:'1',onClick: () => {}}, // 存放文本和函数
@@ -36,8 +39,12 @@ export const InputPad =defineComponent({
             <div  class={s.dateAndAmount}>
                 <span class={s.date}>
                     <Icon name="date" class={s.icon}/>
-                        <span>2022-01-01</span>
+                        <span>
+                            {/* 这个Input的意思？？?? */}
+                            <input type="date" value={time(now).format()}/>
+                            </span>
                         </span>
+                        
             
                 <span class={s.amount}>199.12</span>
             </div>

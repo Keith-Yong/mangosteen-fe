@@ -6,7 +6,7 @@
     padding: 16px;
     font-family: monospace;
     border-top: 1px solid var(--button-border-color);
-    >.date{
+    >.date {
       font-size: 12px;
       display: flex;
       align-items: center;
@@ -18,7 +18,7 @@
         margin-right: 8px;
       }
     }
-    >.amount{
+    >.amount {
       font-size: 20px;
       color: var(--amount-text);
     }
