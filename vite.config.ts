@@ -1,5 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import styleImport, { VantResolve } from 'vite-plugin-style-import';
+
 import vueJsx from '@vitejs/plugin-vue-jsx'
 // @ts-nocheck
 import { svgstore } from './src/vite_plugins/svgstore';
@@ -17,6 +19,9 @@ export default defineConfig({
       mergeProps:true
     }),
     svgstore(),
+    styleImport({
+      resolves: [VantResolve()], //配置vant库
+    }),
   ]
 })
 

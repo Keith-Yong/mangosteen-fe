@@ -16,6 +16,7 @@
         width: 24px;
         height: 24px;
         margin-right: 8px;
+        fill: var(--amount-text);  //icon的颜色用fill属性改
       }
     }
     >.amount {
