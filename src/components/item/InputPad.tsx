@@ -15,32 +15,32 @@ export const InputPad =defineComponent({
        
         const now = new Date()//？？??
         const refDate = ref<Date>(now) //？？??
+        //  appendText函数传入数字或字符串都转化为字符串
+        const appendText = (n:number | string) => refAmount.value += n.toString()
         
-        //  按键上的按钮,
+        //  按键上的按钮,点击后调用appendText函数
         const buttons = [
-            {text:'1',onClick: () => {}}, // 存放文本和函数
-            {text:'2',onClick: () => {}},
-            {text:'3',onClick: () => {}},
-            {text:'清空',onClick: () => {}},
-            {text:'4',onClick: () => {}},
-            {text:'5',onClick: () => {}},
-            {text:'6',onClick: () => {}},
-            {text:'+',onClick: () => {}},
-            {text:'7',onClick: () => {}},
-            {text:'8',onClick: () => {}},
-            {text:'9',onClick: () => {}},
-            {text:'-',onClick: () => {}},
-            {text:'.',onClick: () => {}},
-            {text:'0',onClick: () => {}},
-            {text:'删',onClick: () => {}},
-            {text:'提交',onClick: () => {}},
+            {text:'1',onClick: () => {appendText(1)}}, // 存放文本和函数
+            {text:'2',onClick: () => {appendText(2)}},
+            {text:'3',onClick: () => {appendText(3)}},
+            {text:'4',onClick: () => {appendText(4)}},
+            {text:'5',onClick: () => {appendText(5)}},
+            {text:'6',onClick: () => {appendText(6)}},
+            {text:'7',onClick: () => {appendText(7)}},
+            {text:'8',onClick: () => {appendText(8)}},
+            {text:'9',onClick: () => {appendText(9)}},
+            {text:'.',onClick: () => {appendText('.')}},
+            {text:'0',onClick: () => { appendText(0)}},
+            {text:'清空', onClick: () => { } },
+            {text:'提交', onClick: () => { } },
             
         ]
+
         const refDatePickerVisible = ref(false)
         const showDatePicker = () => refDatePickerVisible.value = true
         const hideDatePicker = () => refDatePickerVisible.value = false
         const setDate = (date: Date) => { refDate.value = date; hideDatePicker() }
-        
+        const refAmount = ref('') //键盘上显示的数字初始值为空字符串
         return () => 
         <>
             <div  class={s.dateAndAmount}>
@@ -59,8 +59,8 @@ export const InputPad =defineComponent({
                             </span>
                         </span>
                         
-            
-                <span class={s.amount}>199.12</span>
+                {/* //键盘上显示的数字 */}
+                <span class={s.amount}>{refAmount.value}</span>
             </div>
             {/*  对buttons对象进行map函数处理返回新的Button列表 */}
             <div class={s.buttons}>
