@@ -36,19 +36,25 @@ export const InputPad =defineComponent({
             {text:'提交',onClick: () => {}},
             
         ]
-        const refShowPop = ref(false)
+        const refDatePickerVisible = ref(false)
+        const showDatePicker = () => refDatePickerVisible.value = true
+        const hideDatePicker = () => refDatePickerVisible.value = false
+        const setDate = (date: Date) => { refDate.value = date; hideDatePicker() }
+        
         return () => 
         <>
             <div  class={s.dateAndAmount}>
                 <span class={s.date}>
                     <Icon name="date" class={s.icon}/>
                         <span>
-                            {/* 这个Input的意思？？?? */}
-                            {/* <input type="date" value={time(now).format()}/> */}
-                            <span onClick={() => refShowPop.value = true}>{time(refDate.value).format()}</span>
-                            <Popup position="bottom" v-model:show={refShowPop.value}>
+                          
+                            {/* {不懂？？??} */}
+                            {/* 使用vant的Popup和DatetimePicker组件实现日期选择器的功能 */}
+                            <span onClick={showDatePicker}>{time(refDate.value).format()}</span>
+                            <Popup position="bottom" v-model:show={refDatePickerVisible.value}>
                                 <DatetimePicker v-model={refDate.value} type="date"
-                                title="选择年月日" onConfirm={ () => refShowPop.value = false}></DatetimePicker>
+                                title="选择年月日" onConfirm={setDate} onCancel={hideDatePicker}
+                                />
                             </Popup>
                             </span>
                         </span>
