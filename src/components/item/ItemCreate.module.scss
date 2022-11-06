@@ -1,3 +1,8 @@
-.wrapper {
-    
-}
+
+
+.inputPad_wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%; //使div容器宽度占据父容器的100%，即body的100%
+  }
