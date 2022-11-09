@@ -6,7 +6,7 @@ import s from './EmojiSelect.module.scss';
 export const EmojiSelect =defineComponent({
     props: {
         modelValue: {
-          type: String as PropType<string>
+          type: String
         }
       },
       setup: (props, context) => {
@@ -70,10 +70,11 @@ export const EmojiSelect =defineComponent({
                         <span class={index === refSelected.value ? s.selected : ''}
                         onClick={() => onClickTab(index)}>{item[0]}</span>
                     })}
+                   
                 </nav>
                 <ol>
                     {/* emojis通过计算属性后成为响应式数据需要.value才能获取它的值*/}
-                    
+
                     {emojis.value}
                 </ol>
             </div>
