@@ -19,7 +19,7 @@ export  const Navbar = defineComponent({
                 <div class={s.navbar}>
                     <span class={s.icon_wrapper}>
                         {/* 定义slots插槽，父组件在子组件内写的内容会在这里被接收 */}
-                        {slots.default?.()}
+                        {slots.icon?.()}
                     </span>
                     <span class={s.title_wrapper}>
                         {slots.default?.()}
