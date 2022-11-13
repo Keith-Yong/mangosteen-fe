@@ -32,7 +32,7 @@ export const validate = <T extends FData>(formData:T, rules:Rules<T>) => {
         const value = formData[key] //获取参数formData对象的key值 //'abc'
         switch (type) {
             case 'required': //type变量值是required
-             if (value === null || value === undefined || value === '') //判断是空或未定义的情况
+             if (isEmpty(value)) //判断是空或未定义的情况
              { 
                 errors[key] = errors[key] ?? [] //如何不存在则让它为空值
                 errors[key]?.push(message)  //{'nam e': ['必填',]}
@@ -43,6 +43,10 @@ export const validate = <T extends FData>(formData:T, rules:Rules<T>) => {
         }
     })
     return errors  //返回errors
+}
+
+function isEmpty(value: null | undefined | string | number | FData ) {
+    return value === null || value === undefined || value === ''
 }
 
 

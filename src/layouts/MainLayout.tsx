@@ -1,6 +1,7 @@
 /**组件功能：把导航栏封装成组件以 让别的页头可以复用 */
 import { defineComponent } from "vue";
 import { Navbar } from "../shared/Navbar";
+import s from './MainLayout.module.scss'
 
 // 
 export const MainLayout = defineComponent({
@@ -19,6 +20,7 @@ export const MainLayout = defineComponent({
                     }
                 </Navbar>
                     {context.slots.default?.()}
+                    
             </div>
         )
     }
