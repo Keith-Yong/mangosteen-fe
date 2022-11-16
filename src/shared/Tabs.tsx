@@ -3,6 +3,10 @@ import { defineComponent, PropType } from "vue";
 import s from './Tabs.module.scss'
 export const Tabs = defineComponent({
     props: {
+        // 新增props的classPrefix属性
+        classPrefix: {
+            type: String
+          },
         selected: {
             type: String as PropType<string>, //selected属性约束类型为string，
             required: false,
@@ -14,7 +18,7 @@ export const Tabs = defineComponent({
     },
     setup: (props, context) => {
         return () => {
-            //  这里的default调用的哪里的函数？？ 父组件会自动传递到子组件的slots中
+            //  这里的default是默认的插槽属性，未定义的插槽内容都会放在该属性中
             const tabs = context.slots.default?.()
             console.log(tabs)
             if (!tabs) return () => null //如果值为空则返回null
@@ -27,11 +31,13 @@ export const Tabs = defineComponent({
             //  为什么可以return两次
 
             
-            
-            return <div class={s.tabs}>
-                <ol class={s.tabs_nav}>
+            const cp = props.classPrefix
+            return <div class={[s.tabs, cp+'_tabs']}>
+                <ol class={[s.tabs_nav , cp +'_tabs_nav']}>
                     {/*  map方法把tab传入后*/}
-                    {tabs.map(item => <li class={item.props?.name === props.selected ? s.selected : ''}
+                    {tabs.map(item => <li class={[item.props?.name === props.selected ? [s.selected,'_tabs_nav'] : '',
+                    cp + '_tabs_nav_item'
+                    ]}
                         onClick={() => context.emit('update:selected', item.props?.name)}
                     >
                         {/* props.name获取父组件传进来的值这里是支出或者收入 */}

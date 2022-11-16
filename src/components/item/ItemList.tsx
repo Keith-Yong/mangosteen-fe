@@ -1,5 +1,8 @@
 /**组件功能：记账页的明细列表 */
-import { defineComponent, PropType } from "vue";
+import { Icon } from '../../shared/Icon';
+import { defineComponent, PropType, ref } from "vue";
+import { MainLayout } from "../../layouts/MainLayout";
+import { Tab,Tabs } from "../../shared/Tabs";
 import s from './ItemList.module.scss'
 export const  ItemList = defineComponent({
     props: {
@@ -8,12 +11,36 @@ export const  ItemList = defineComponent({
         }
     },
     setup:(props,context) => {
-        return () => {
-            <>
+        const refSelected = ref('本月')
+        return () => (
+           <MainLayout>{
+            {
+            title: () => "海豚记账",
+            icon: () => <Icon name="menu"/>,
+            default: () => (
+                <Tabs classPrefix= {'customTabs'} v-model:selected={refSelected.value}>
+                     <Tab name="本月">
+                        list 1
+                        </Tab>
+                        <Tab name="上月">
+                            list 2
+                        </Tab>
+                        <Tab name="今年">
+                            list 3
+                        </Tab>
+                        <Tab name="自定义时间">
+                            list 4
+                        </Tab>
+                </Tabs>
+            )
 
-            <div class={s.wrapper}>hi</div>
-
-            </>
+        
         }
+        }</MainLayout>
+
+            
+
+            
+        )
     }
 })
