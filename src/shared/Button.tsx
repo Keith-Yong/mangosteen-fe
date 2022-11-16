@@ -20,7 +20,8 @@ export const Button = defineComponent({
 
     setup:(props, context) => {
         return () => (
-            <button class={s.button}>
+            // s[props.level]接受组件从外部传递过来的level参数，根据参数添加对应的样式
+            <button class={[s.button, s[props.level]]}>
                 
                 {context.slots.default?.()}
 
