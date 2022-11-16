@@ -68,7 +68,7 @@ const emojis = computed( () => {
 
         return () => (
             <div class={s.emojiList}>
-                {/* table获取每一项tag的名称 用span标签的形式导出*/}
+                {/* 标签的分类名称*/}
                 <nav>
                    
                     {table.map((item, index) =>
@@ -77,7 +77,7 @@ const emojis = computed( () => {
                 </nav>
                 <ol>
                     {/* emojis通过计算属性后成为响应式数据需要.value才能获取它的值*/}
-                    { [3,4,5] }
+                    
                     {emojis.value}
                 </ol>
             </div>

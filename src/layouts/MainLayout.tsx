@@ -7,9 +7,10 @@ import s from './MainLayout.module.scss'
 export const MainLayout = defineComponent({
     setup:(props, context) => {
         return () => (
-            <div>
+            <div class={s.wrapper}>
                 {/* 引入Navbar组件 */}
-                <Navbar>
+                <Navbar class={s.navbar}>
+                    
                     {
                         {
                             // 把箭头函数的值传给default,icon
