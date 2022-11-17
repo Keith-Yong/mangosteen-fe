@@ -1,7 +1,7 @@
 import { defineComponent, PropType, ref } from "vue";
 import { Icon } from "../../shared/Icon";
 import s from './InputPad.module.scss';
-import { time } from '../../shared/time';
+import { Time } from '../../shared/time';
 import { DatetimePicker,NumberKeyboard, Popup } from "vant";
 
 /**键盘数字 */
@@ -79,7 +79,8 @@ export const InputPad =defineComponent({
                           
                             {/* {不懂？？??} */}
                             {/* 使用vant的Popup和DatetimePicker组件实现日期选择器的功能 */}
-                            <span onClick={showDatePicker}>{time(refDate.value).format()}</span>
+                            
+                            <span onClick={showDatePicker}>{new Time(refDate.value).format()}</span>
                             <Popup position="bottom" v-model:show={refDatePickerVisible.value}>
                                 <DatetimePicker v-model={refDate.value} type="date"
                                 title="选择年月日" onConfirm={setDate} onCancel={hideDatePicker}
