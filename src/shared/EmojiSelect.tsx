@@ -7,6 +7,9 @@ export const EmojiSelect =defineComponent({
     props: {
         modelValue: {
           type: String
+        },
+        onUpdateModelValue: {
+            type: Function as PropType<(emoji: string) => void>
         }
       },
       setup: (props, context) => {
@@ -51,7 +54,12 @@ export const EmojiSelect =defineComponent({
         }
         // onClickEmoji函数绑定单个元素，使成为父子间可以传递的属性
         const onClickEmoji = (emoji:string) => {
-                context.emit('update:modelValue',emoji) //emoji发生变化，通知父组件上v-model的数据也要变化
+                // context.emit('update:modelValue',emoji) //emoji发生变化，通知父组件上v-model的数据也要变化
+                if (props.onUpdateModelValue) {
+                    props.onUpdateModelValue(emoji)
+                  } else {
+                    context.emit('update:modelValue', emoji)
+                  }
         }
 // ["\u{1F600}", "\u{1F603}", "\u{1F604}", "\u{1F601}", "\u{1F606}", "\u{1F605}", "\u{1F923}", "\u{1F602}", "\u{1F642}", "\u{1F643}", "\u{1FAE0}", "\u{1F609}", "\u{1F60A}", "\u{1F607}"]
 // [<li class="xx">\u{1F600}</li>,  ] 

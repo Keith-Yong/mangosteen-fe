@@ -15,13 +15,16 @@ export const Button = defineComponent({
         level: {
           type: String as PropType<'important' | 'normal' | 'danger'>,
           default: 'important'
+        },
+        type: {
+          type: String as PropType<'submit' | 'button'>
         }
       },
 
     setup:(props, context) => {
         return () => (
             // s[props.level]接受组件从外部传递过来的level参数，根据参数添加对应的样式
-            <button class={[s.button, s[props.level]]}>
+            <button type={props.type} class={[s.button, s[props.level]]}>
                 
                 {context.slots.default?.()}
 
