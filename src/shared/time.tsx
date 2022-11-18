@@ -35,6 +35,7 @@ export class Time {
   getRaw() {
     return this.date
   }
+  //  add函数 用于计算时间
   add(amount: number, unit: 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond') {
     // return new Time but not change this.date
     let date = new Date(this.date.getTime());
