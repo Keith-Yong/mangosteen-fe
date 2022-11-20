@@ -3,7 +3,7 @@
     
         --amount-text: #53a867;
         --button-bg-important: #5c33be;
-        --button-bg: #5C33be;
+       
         --button-border-color: #ddd;
         --button-font-size: 18px;
         --button-height: 48px;
@@ -22,7 +22,7 @@
         --input-radius: var(--button-radius);
         --input-shadow: rgba(0, 0, 0, 0.25);
 
-        --list-tag-text: #333;
+      
         --list-amount-text: var(--amount-text);
         --list-time-text: var(--date-text);
         --main: #5c33be;
@@ -38,10 +38,14 @@
         --top-safe-area-height: 24px;
 
         --total-bg: #252A43;
-        --total-text: white;
+       
         --total-income: #FE7275;
+        --total-text: white;
+
         --total-expenses: #53A867;
         --transition-duration: 0.5s;
+
+        --van-overlay-z-index: 64;
         
         --welcome-bg-end: #8f4cd7;
         --welcome-bg-start: #5d33be;
