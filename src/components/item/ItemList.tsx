@@ -39,12 +39,7 @@ export const  ItemList = defineComponent({
             }
         ]
 
-        // 初始化refOverlayVisible的值 watchEffect监听refSelected值的变化
-        watchEffect(() => {
-            if (refSelected.value === '自定义时间') {
-              refOverlayVisible.value = true
-            }
-          })
+      
           const refOverlayVisible = ref(false)
           
           const onSubmitCustomTime = (e: Event) => {
@@ -58,7 +53,12 @@ export const  ItemList = defineComponent({
             title: () => "海豚记账",
             icon: () => <Icon name="menu"/>,
             default: () => <>
-                <Tabs classPrefix= {'customTabs'} v-model:selected={refSelected.value}>
+                
+                <Tabs classPrefix={'customTabs'} v-model:selected={refSelected.value}
+                // 用 onUpdate绑定refOverlayVisible的值
+                    onUpdate:selected={() => refOverlayVisible.value = true}>
+
+
                      <Tab name="本月">
                      <ItemSummary
                             startDate={timeList[0].start.format()}
@@ -86,15 +86,16 @@ export const  ItemList = defineComponent({
                         <header>
                         请选择时间
                         </header>
-                        <main>
-                            <Form onSubmit={onSubmitCustomTime}>
+                        {/*  为什么我的onSubmit是作用在这里才生效而不是form标签 */}
+                        <main onSubmit={onSubmitCustomTime}>
+                            <Form  >
                                 <FormItem label='开始时间' v-model={customTime.start} type='date' />
                                 <FormItem label='结束时间' v-model={customTime.end} type='date' />
                                 <FormItem>
-                                <div class={s.actions}>
-                                    <button type="button">取消</button>
-                                    <button type="submit">确认</button>
-                                </div>
+                                    <div class={s.actions}>
+                                        <button type="button">取消</button>
+                                        <button type="submit">确认</button>
+                                    </div>
                                 </FormItem>
                             </Form>
                         </main>

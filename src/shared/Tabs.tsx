@@ -11,11 +11,9 @@ export const Tabs = defineComponent({
             type: String as PropType<string>, //selected属性约束类型为string，
             required: false,
         },
-        onUpdateSelected: {
-            //onUpdateSelected属性约束类型为Function，
-            type: Function as PropType<(name: string) => void>
-        }
+       
     },
+    emits: ['update:selected'], //1定义emits的值，数组
     setup: (props, context) => {
         return () => {
             //  这里的default是默认的插槽属性，未定义的插槽内容都会放在该属性中
