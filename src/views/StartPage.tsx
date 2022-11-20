@@ -6,17 +6,13 @@ import { Center } from '../shared/Center';
 import { FloatButton } from '../shared/FloatButton';
 import { Icon } from '../shared/Icon';
 import { Navbar } from '../shared/Navbar';
-import { Overlay } from '../shared/Overlay';
+import { Overlay,OverlayIcon } from '../shared/Overlay';
 import s from './StartPage.module.scss';
 export const StartPage = defineComponent({
   setup: (props, context) => {
     
         // 响应式数据：布尔值变量refOverlayVisible，初始为否
-        const refOverlayVisible = ref(false)
-        const onClickMenu = () => {
-        // 让响应式数据值可以自动重置
-        refOverlayVisible.value = !refOverlayVisible.value
-      }
+       
     
     
     //   <div>
@@ -65,7 +61,8 @@ return () => (
     <MainLayout>{
         {
             title: () => '海豚记账', 
-            icon: () => <Icon name="menu" class={s.navIcon} onClick={onClickMenu} />,
+            icon: () => <OverlayIcon />,
+
             default: () => <>
               <Center class={s.pig_wrapper}>
                 <Icon name="pig" class={s.pig} />
@@ -78,9 +75,7 @@ return () => (
               <RouterLink to="/items/create">
                 <FloatButton iconName='add' />
               </RouterLink>
-              {refOverlayVisible.value &&
-                <Overlay onClose={() => refOverlayVisible.value = false} />
-              }
+             
             </>
           }
     }</MainLayout>

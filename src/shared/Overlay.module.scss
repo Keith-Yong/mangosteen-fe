@@ -19,7 +19,7 @@
     width: 16em;
     // 设置弹层的高度
     height: calc((100%) - var(--top-safe-area-height));
-    
+    color: var(--text);
 }
 
 .currentUser {
@@ -39,4 +39,11 @@
     > .icon {
       margin-right: 12px;
     }
+  }
+
+  .icon{
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: 2px;
   }

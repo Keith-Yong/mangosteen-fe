@@ -1,5 +1,5 @@
-
-import { defineComponent, PropType } from "vue";
+/**组件功能：弹层内容 */
+import { defineComponent, PropType, ref } from "vue";
 import { RouterLink } from "vue-router";
 import { Icon } from "./Icon";
 import s from './Overlay.module.scss'
@@ -71,5 +71,24 @@ export const Overlay = defineComponent({
                 
                 </>
         }
+    }
+})
+
+//  将弹层封装成可以复用的组件OverlayIcon 
+export const OverlayIcon  = defineComponent({
+    setup:(props, context) => {
+        const refOverlayVisible = ref(false)
+        
+        const onClickMenu = () => {
+            refOverlayVisible.value = !refOverlayVisible.value
+          }
+// 返回Icon组件和Overlay组件，设置组件执行的条件
+    return () => <>
+                <Icon name="menu" class={s.icon} onClick={onClickMenu}/>
+                {refOverlayVisible.value && 
+                <Overlay onClose={() => refOverlayVisible.value = false} />
+                }
+            </>
+    
     }
 })
