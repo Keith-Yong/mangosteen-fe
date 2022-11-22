@@ -1,3 +1,4 @@
+/**items记账明细页面中 根据不同的时间 切换不同的 内容 */
 import { defineComponent, PropType } from "vue";
 import { FloatButton } from "../../shared/FloatButton";
 import s from './ItemSummary.module.scss'

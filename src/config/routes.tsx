@@ -18,6 +18,8 @@ import { ItemCreate } from "../components/item/ItemCreate";
 import { TagPage } from "../views/TagPage";
 import { TagCreate } from "../components/tag/TagCreate";
 import { TagEdit } from "../components/tag/TagEdit";
+import { StatisticsPage } from "../views/StatisticsPage";
+import {SignInPage} from "../views/SignInPage"
 // 新建routes.tsx存放路由
 //  定义组件
 // RouteRecordRaw获得配置子路由的属性children
@@ -48,6 +50,12 @@ export const routes:RouteRecordRaw[] =  [
           {path:'create', component:TagCreate },
           {path:'id/edit', component:TagEdit},
         ]
+      },
+      {
+        path: '/sign_in',component:SignInPage
+      },
+      {
+        path: '/statistics', component: StatisticsPage 
       }
 
 ]
