@@ -76,8 +76,6 @@ export const FormItem = defineComponent ( {
                 {props.options?.map(option =>
                   <option value={option.value}>{option.text}</option>
                   )}
-              
-
               </select>
               </>
 
