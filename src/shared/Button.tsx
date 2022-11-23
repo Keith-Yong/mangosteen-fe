@@ -19,13 +19,18 @@ export const Button = defineComponent({
         type: {
           type: String as PropType<'submit' | 'button'>,
           default:'button'
+        },
+        // 该属性决定按钮能否点击
+        disabled : {
+          type:Boolean,
+          default: false
         }
       },
 
     setup:(props, context) => {
         return () => (
             // s[props.level]接受组件从外部传递过来的level参数，根据参数添加对应的样式
-            <button type={props.type} class={[s.button, s[props.level]]}
+            <button  disabled={props.disabled}  type={props.type} class={[s.button, s[props.level]]}
             onClick={props.onClick} 
             >
                 

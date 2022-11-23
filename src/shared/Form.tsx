@@ -5,6 +5,7 @@ import { computed, defineComponent, PropType, ref } from "vue";
 import { EmojiSelect } from './EmojiSelect';
 import s from './Form.module.scss';
 import { Time } from "./time";
+import { time } from "echarts";
 export const Form  = defineComponent( {
     props: {
         onSubmit:{
@@ -43,13 +44,38 @@ export const FormItem = defineComponent ( {
     },
     //onClick属性是箭头函数
     onClick : {
-      type:Function as PropType< () => void>}
-
-  
-    },
+      type:Function as PropType< () => void>},
+    countForm : {
+      type: Number,
+      default: 60 // 定时器初始值为60
+    }
+  },
+    
+    
 
     setup: (props, context) =>  {
         const refDateVisible = ref(false)
+
+        const timer = ref<number>() //计时器初始化为空
+        const count = ref<number>(props.countForm) // 倒数时间：
+        const isCounting = computed( () => !! timer.value) //是否是在记时
+
+        const onClickSendValidationCode  = () => {
+          props.onClick?.()
+          //  计时器函数 
+          timer.value = setInterval ( () => {
+            count.value -=1
+            if(count.value === 0) {
+              clearInterval(timer.value)
+              timer.value =undefined
+              count.value = props.countForm //重置为60
+            }
+          },1000)
+
+          
+
+        }
+
         const content = computed(() =>{
             switch (props.type) {
             case 'text':
@@ -68,8 +94,10 @@ export const FormItem = defineComponent ( {
                     return <>
                         <input class={[s.formItem, s.input, s.validationCodeInput]}
                         placeholder={props.placeholder} />
-                        <Button  onClick= {props.onClick} class={[s.formItem, s.button, s.validationCodeButton]}>
-                        发送验证码
+                        <Button  disabled={isCounting.value} onClick= {onClickSendValidationCode} class={[s.formItem, s.button, s.validationCodeButton]}>
+                        {/* isCounting状态为true则展示多少秒，否则展示固定文案  */}
+                        {isCounting.value ? `${count.value}秒后可重新发送` :  '发送验证码'}
+                        
                         </Button>
                     </>
             case 'select': //select类型返回的组件标签
