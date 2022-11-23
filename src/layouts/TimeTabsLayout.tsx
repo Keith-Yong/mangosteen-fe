@@ -73,7 +73,7 @@ export const TimeTabsLayout  =  defineComponent({
                 title:() => '海豚记账',
                 icon:() => <OverlayIcon/>,
                 default: () => <>
-                {/*onUpdate为什么  */}
+                {/*  */}
                 <Tabs classPrefix='customTabs' v-model:selected={refSelected.value} onUpdate:selected={onSelect}>
                     <Tab name='本月'>
                         <props.component 

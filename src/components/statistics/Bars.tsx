@@ -26,7 +26,7 @@ export  const Bars = defineComponent( {
 
         return () => (
             <div class={s.demo3}>
-            {betterData3.value.map( ( {tag,amount,percent} ) => { //为什么 {tag,amount,percent}这个对象是如何拿到的 
+            {betterData3.value.map( ( {tag,amount,percent} ) => { // {tag,amount,percent}这个对象是如何拿到的 
                 return (
                     <div class={s.topItem}>
                          <div class={s.sign}>

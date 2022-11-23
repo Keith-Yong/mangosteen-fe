@@ -40,7 +40,11 @@ export const FormItem = defineComponent ( {
     // options: Array as PropType<Array<{ value: string, text: string }>>
     options: { 
       type: Array as PropType<Array<{value:string,text:string}>>
-    }
+    },
+    //onClick属性是箭头函数
+    onClick : {
+      type:Function as PropType< () => void>}
+
   
     },
 
@@ -64,7 +68,7 @@ export const FormItem = defineComponent ( {
                     return <>
                         <input class={[s.formItem, s.input, s.validationCodeInput]}
                         placeholder={props.placeholder} />
-                        <Button class={[s.formItem, s.button, s.validationCodeButton]}>
+                        <Button  onClick= {props.onClick} class={[s.formItem, s.button, s.validationCodeButton]}>
                         发送验证码
                         </Button>
                     </>
