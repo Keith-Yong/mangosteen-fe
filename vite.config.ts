@@ -22,7 +22,16 @@ export default defineConfig({
     styleImport({
       resolves: [VantResolve()], //配置vant库
     }),
-  ]
+  ],
+  // 设置服务器的代理
+  server: {
+    proxy: {
+      '/api/v1': {
+        
+        target: 'http://121.196.236.94:8080/',
+      }
+    }
+  }
 })
 
 
