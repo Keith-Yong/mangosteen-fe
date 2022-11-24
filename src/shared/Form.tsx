@@ -6,6 +6,7 @@ import { EmojiSelect } from './EmojiSelect';
 import s from './Form.module.scss';
 import { Time } from "./time";
 import { time } from "echarts";
+import { getFriendlyError } from './getFriendlyError ';
 export const Form  = defineComponent( {
     props: {
         onSubmit:{
@@ -47,7 +48,7 @@ export const FormItem = defineComponent ( {
       type:Function as PropType< () => void>},
     countForm : {
       type: Number,
-      default: 60 // 定时器初始值为60
+      default: 1 // 定时器初始值为60
     }
   },
     
@@ -140,7 +141,7 @@ export const FormItem = defineComponent ( {
             {content.value}
           </div>
           <div class={s.formItem_errorHint}>
-            <span>{props.error ?? '　'}</span>
+            <span>{props.error ?  getFriendlyError(props.error):'　'}</span>
           </div>
         </label>
       </div>

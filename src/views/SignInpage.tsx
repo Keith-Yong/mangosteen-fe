@@ -6,10 +6,11 @@ import { Icon } from '../shared/Icon';
 import { validate } from '../shared/validate';
 import s from './SignInPage.module.scss';
 import axios from 'axios'
+import { http } from '../shared/Http';
 export const SignInPage = defineComponent({
   setup: (props, context) => {
     const formData = reactive({
-      email: '',
+      email: 'fangyinghang@foxmail.com', // 初始化邮箱
       code: ''
     })
     const errors = reactive({
@@ -28,16 +29,22 @@ export const SignInPage = defineComponent({
         { key: 'code', type: 'required', message: '必填' },
       ]))
     }
+    const onError = (error: any) => {
+      if (error.response.status === 422) {
+        console.log('errors',errors)
+        Object.assign(errors, error.response.data.errors)
+      }
+      throw error
+    }
     //使用axios发起请求
     const onClickSendValidationCode =async () => {
       
-        const response = await axios.post('/api/v1/validation_codes', { email: formData.email })
-        .catch( ()=> {
-          //失败的处理
-        })
+        const response = await http
+         .post('/validation_codes', { email: formData.email })
+        .catch( onError) //失败的处理，回调onError函数
         // 成功的处理，这里是调用startCount函数
         refValidationCode.value.startCount()
-        console.log(refValidationCode)
+       
 
     }
     return () => (
@@ -57,7 +64,7 @@ export const SignInPage = defineComponent({
                   v-model={formData.email} error={errors.email?.[0]} />
                 <FormItem  ref= {refValidationCode} label="验证码" type="validationCode"
                   placeholder='请输入六位数字'
-                  countForm={60}
+                  countForm={1}
                   onClick={onClickSendValidationCode}
                   v-model={formData.code} error={errors.code?.[0]} />
                 <FormItem style={{ paddingTop: '96px' }}>
