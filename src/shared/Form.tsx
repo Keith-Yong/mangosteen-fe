@@ -48,7 +48,10 @@ export const FormItem = defineComponent ( {
       type:Function as PropType< () => void>},
     countForm : {
       type: Number,
-      default: 1 // 定时器初始值为60
+      default: 5 // 定时器初始值为60
+    },
+    disabled: {
+      type:Boolean,
     }
   },
     
@@ -73,6 +76,8 @@ export const FormItem = defineComponent ( {
               count.value = props.countForm //重置为60
             }
           },1000)
+          console.log('....')
+          console.log(timer.value)
 
           context.expose( {startCount}) //使用expose导出组件内的函数
         
@@ -95,7 +100,7 @@ export const FormItem = defineComponent ( {
                     return <>
                         <input class={[s.formItem, s.input, s.validationCodeInput]}
                         placeholder={props.placeholder} />
-                        <Button  disabled={isCounting.value} onClick= {props.onClick} class={[s.formItem, s.button, s.validationCodeButton]}>
+                        <Button  disabled={isCounting.value || props.disabled} onClick= {props.onClick} class={[s.formItem, s.button, s.validationCodeButton]}>
                         {/* isCounting状态为true则展示多少秒，否则展示固定文案  */}
                         {isCounting.value ? `${count.value}秒后可重新发送` :  '发送验证码'}
                         

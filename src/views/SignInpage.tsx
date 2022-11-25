@@ -7,6 +7,7 @@ import { validate } from '../shared/validate';
 import s from './SignInPage.module.scss';
 import axios from 'axios'
 import { http } from '../shared/Http';
+import { useBool } from '../hooks/useBool';
 export const SignInPage = defineComponent({
   setup: (props, context) => {
     const formData = reactive({
@@ -18,6 +19,7 @@ export const SignInPage = defineComponent({
       code: []
     })
     const refValidationCode  = ref<any>() //将refValidationCode绑定到父组件上，再通过ref<any>获取子组件，
+    const {ref:refDisabled,toggle,on:disabled,off:enable} = useBool(false) // 解构赋值后用新的变量引用返回的变量
     const onSubmit = (e: Event) => {
       e.preventDefault()
       Object.assign(errors, {
@@ -38,10 +40,11 @@ export const SignInPage = defineComponent({
     }
     //使用axios发起请求
     const onClickSendValidationCode =async () => {
-      
+        disabled()
         const response = await http
          .post('/validation_codes', { email: formData.email })
         .catch( onError) //失败的处理，回调onError函数
+        .finally(enable)
         // 成功的处理，这里是调用startCount函数
         refValidationCode.value.startCount()
        
@@ -64,7 +67,8 @@ export const SignInPage = defineComponent({
                   v-model={formData.email} error={errors.email?.[0]} />
                 <FormItem  ref= {refValidationCode} label="验证码" type="validationCode"
                   placeholder='请输入六位数字'
-                  countForm={1}
+                  countForm={5}
+                  disabled={refDisabled.value} //disabled是解构赋值获取的变量
                   onClick={onClickSendValidationCode}
                   v-model={formData.code} error={errors.code?.[0]} />
                 <FormItem style={{ paddingTop: '96px' }}>
