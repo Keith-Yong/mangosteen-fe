@@ -49,5 +49,15 @@ function isEmpty(value: null | undefined | string | number | FData ) {
     return value === null || value === undefined || value === ''
 }
 
-
+//处理errors对象为空无法判断的问题
+export function hasError(errors:Record<string,string[]>) {
+    let result = false
+    for (let key in errors) {
+        if(errors[key].length > 0) {
+            result = true
+            break
+        }
+    }
+    return result
+}
 

@@ -3,11 +3,12 @@ import { MainLayout } from '../layouts/MainLayout';
 import { Button } from '../shared/Button';
 import { Form, FormItem } from '../shared/Form';
 import { Icon } from '../shared/Icon';
-import { validate } from '../shared/validate';
+import { hasError, validate } from '../shared/validate';
 import s from './SignInPage.module.scss';
 import axios from 'axios'
 import { http } from '../shared/Http';
 import { useBool } from '../hooks/useBool';
+import { history } from '../shared/history';
 export const SignInPage = defineComponent({
   setup: (props, context) => {
     const formData = reactive({
@@ -20,7 +21,8 @@ export const SignInPage = defineComponent({
     })
     const refValidationCode  = ref<any>() //将refValidationCode绑定到父组件上，再通过ref<any>获取子组件，
     const {ref:refDisabled,toggle,on:disabled,off:enable} = useBool(false) // 解构赋值后用新的变量引用返回的变量
-    const onSubmit = (e: Event) => {
+    const onSubmit = async (e: Event) => {
+      console.log('submit')
       e.preventDefault()
       Object.assign(errors, {
         email: [], code: []
@@ -30,6 +32,15 @@ export const SignInPage = defineComponent({
         { key: 'email', type: 'pattern', regex: /.+@.+/, message: '必须是邮箱地址' },
         { key: 'code', type: 'required', message: '必填' },
       ]))
+      // errors对象为空，触发该函数执行http对象 发送请求
+      if(!hasError(errors)) {
+        const response = await http.post<{jwt:string}>('/session', formData)
+        localStorage.setItem('jwt', response.data.jwt) //jwt存放到 localStorage上
+        history.push('/') //什么意思
+
+      }
+
+      
     }
     const onError = (error: any) => {
       if (error.response.status === 422) {
@@ -47,6 +58,7 @@ export const SignInPage = defineComponent({
         .finally(enable)
         // 成功的处理，这里是调用startCount函数
         refValidationCode.value.startCount()
+       
        
 
     }
@@ -72,7 +84,7 @@ export const SignInPage = defineComponent({
                   onClick={onClickSendValidationCode}
                   v-model={formData.code} error={errors.code?.[0]} />
                 <FormItem style={{ paddingTop: '96px' }}>
-                  <Button>登录</Button>
+                  <Button type="submit">登录</Button>
                 </FormItem>
               </Form>
             </div>

@@ -99,6 +99,9 @@ export const FormItem = defineComponent ( {
             case 'validationCode':
                     return <>
                         <input class={[s.formItem, s.input, s.validationCodeInput]}
+                        value={props.modelValue}
+                        onInput={(e: any) => context.emit('update:modelValue', e.target.value)} //修复input的值和formitem没有关联的bug
+
                         placeholder={props.placeholder} />
                         <Button  disabled={isCounting.value || props.disabled} onClick= {props.onClick} class={[s.formItem, s.button, s.validationCodeButton]}>
                         {/* isCounting状态为true则展示多少秒，否则展示固定文案  */}
@@ -108,7 +111,7 @@ export const FormItem = defineComponent ( {
                     </>
             case 'select': //select类型返回的组件标签
               return <>
-              {/* 为什么 */}
+          
               <select class={[s.formItem ,s.select]} value={props.modelValue}
               onChange={(e:any) => {context.emit('update:modelValue'),e.target.value}}>
                 {props.options?.map(option =>
