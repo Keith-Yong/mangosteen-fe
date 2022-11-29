@@ -1,6 +1,6 @@
 /**为什么 */
 const map : Record<string,string> = {
-    'isvalid' :'格式不正确'
+    'invalid' :'格式不正确'
 }
 
 export const getFriendlyError = (error : string) => {

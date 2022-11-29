@@ -32,9 +32,18 @@ delete<R = unknown>(url: string, query?: Record<string, string>, config?: Omit<A
 
 
 export const http = new Http('/api/v1')
+//请求拦截器：给请求头添加jwt
+http.instance.interceptors.request.use( config => {
+    const jwt = localStorage.getItem('jwt')
+    if (jwt) {
+        config.headers!.Authorization = `Bearer $ {jwt}`
+    }
+    return config
+}
 
+)
 
-// 拦截器  使用interceptors
+// 错误拦截器  使用interceptors
 http.instance.interceptors.response.use( response => {
     return response
 },(error) => {

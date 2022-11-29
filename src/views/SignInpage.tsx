@@ -9,10 +9,11 @@ import axios from 'axios'
 import { http } from '../shared/Http';
 import { useBool } from '../hooks/useBool';
 import { history } from '../shared/history';
+import { useRoute, useRouter } from 'vue-router';
 export const SignInPage = defineComponent({
   setup: (props, context) => {
     const formData = reactive({
-      email: 'fangyinghang@foxmail.com', // 初始化邮箱
+      email: '', // 初始化邮箱
       code: ''
     })
     const errors = reactive({
@@ -21,6 +22,10 @@ export const SignInPage = defineComponent({
     })
     const refValidationCode  = ref<any>() //将refValidationCode绑定到父组件上，再通过ref<any>获取子组件，
     const {ref:refDisabled,toggle,on:disabled,off:enable} = useBool(false) // 解构赋值后用新的变量引用返回的变量
+   
+    const router = useRouter()
+    const route  = useRoute()
+    
     const onSubmit = async (e: Event) => {
       console.log('submit')
       e.preventDefault()
@@ -34,10 +39,11 @@ export const SignInPage = defineComponent({
       ]))
       // errors对象为空，触发该函数执行http对象 发送请求
       if(!hasError(errors)) {
-        const response = await http.post<{jwt:string}>('/session', formData)
+        const response = await http.post<{jwt:string;}>('/session', formData)
         localStorage.setItem('jwt', response.data.jwt) //jwt存放到 localStorage上
-        history.push('/') //什么意思
-
+        // history.push('/') //把路由重置到首页
+        const returnTo = route.query.return_to?.toString() //return_to是一个可选参数，如果在未登录下，从其他页面访问，则会跳转到首页，bi
+        router.push(returnTo || '/') //等同于点击<router-link :to="...">,vueroute会做自动处理
       }
 
       

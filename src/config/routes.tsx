@@ -20,6 +20,7 @@ import { TagCreate } from "../components/tag/TagCreate";
 import { TagEdit } from "../components/tag/TagEdit";
 import { StatisticsPage } from "../views/StatisticsPage";
 import {SignInPage} from "../views/SignInPage"
+import { http } from "../shared/Http";
 // 新建routes.tsx存放路由
 //  定义组件
 // RouteRecordRaw获得配置子路由的属性children
@@ -27,7 +28,13 @@ export const routes:RouteRecordRaw[] =  [
     {path:'/',redirect:'/welcome'},
     {
       path: '/welcome',
-      component: Welcome,  
+      component: Welcome,
+
+      
+      beforeEnter : (to,from,next) => {
+        localStorage.getItem('skipFeatures') === 'yes' ? next('/start') : next()   //next('/start')表示会跳转到/start路径，next()自动执行后面的流程
+      },
+      
       children: [
       { path: '' ,redirect:'/welcome/1',},
       { path: '1', name:'Welcome1', components: {main:First,footer:FirstActions}, },
@@ -39,6 +46,15 @@ export const routes:RouteRecordRaw[] =  [
       {path:'/start', component: StartPage},
       {
         path:'/items', component:ItemPage,
+        beforeEnter: async (to,from,next) =>{
+         await http.get('/me').catch( () => { //在请求items路由时调用get('/me')，如果请求失败路由将变成sign_in?return_to+目标路由，成功则走next()
+             next('sign_in?return_to' + to.path)
+          })
+
+          next()
+
+          
+        },
         children:[
           {path:'', component:ItemList },
           {path:'create', component:ItemCreate},
