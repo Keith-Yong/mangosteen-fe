@@ -10,6 +10,7 @@ import { http } from '../shared/Http';
 import { useBool } from '../hooks/useBool';
 import { history } from '../shared/history';
 import { useRoute, useRouter } from 'vue-router';
+import { refreshMe } from '../shared/me';
 export const SignInPage = defineComponent({
   setup: (props, context) => {
     const formData = reactive({
@@ -37,12 +38,13 @@ export const SignInPage = defineComponent({
         { key: 'email', type: 'pattern', regex: /.+@.+/, message: '必须是邮箱地址' },
         { key: 'code', type: 'required', message: '必填' },
       ]))
-      // errors对象为空，触发该函数执行http对象 发送请求
+      // errors对象为空，点击登录按钮，发送session接口请求并保存jwt
       if(!hasError(errors)) {
         const response = await http.post<{jwt:string;}>('/session', formData)
         localStorage.setItem('jwt', response.data.jwt) //jwt存放到 localStorage上
         // history.push('/') //把路由重置到首页
         const returnTo = route.query.return_to?.toString() //return_to是一个可选参数，如果在未登录下，从其他页面访问，则会跳转到首页，bi
+        refreshMe() // 发送me接口，获取用户的个人信息
         router.push(returnTo || '/') //等同于点击<router-link :to="...">,vueroute会做自动处理
       }
 
