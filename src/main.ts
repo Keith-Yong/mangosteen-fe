@@ -39,35 +39,35 @@ fetchMe() //请求me接口
 //         return path
 
 // 规定whiteList是对象，且键必须是字符串，值只能是规定的值
-    const whiteList:Record<string, 'exact' | 'startsWith'> = {
-        '/': 'exact',
-        '/start':'exact',
-        '/welcome':'startsWith',
-        'sign_in':'startsWith',
+const whiteList:Record<string, 'exact' | 'startsWith'> = {
+    '/': 'exact',
+    '/start':'exact',
+    '/welcome':'startsWith',
+    '/sign_in':'startsWith',
 
-    }
+}
 
-    // 用router.beforeEach函数实现路由的拦截作用
-    router.beforeEach( (to,from) => {
-        for (const key in whiteList) {
-            const value = whiteList[key]
-            if ( key === to.path &&value === 'exact') {
-                return true
-            }
-            if (value === 'startsWith' && to.path.startsWith(key)) {
-                return true
-            } 
+// 用router.beforeEach函数实现路由的拦截作用
+router.beforeEach( (to,from) => {
+    for (const key in whiteList) {
+        const value = whiteList[key]
+        if ( to.path === key && value === 'exact') {
+            return true
         }
-        return mePromise!.then(
-            () => true,
-            () => 'sign_in?return_to' + to.path
-        )
-    } )
+        if (value === 'startsWith' && to.path.startsWith(key)) {
+            return true
+        } 
+    }
+    return mePromise!.then(
+        () => true,
+        () => '/sign_in?return_to=' + to.path
+    )
+} )
 
-   
 
 
-    
+
+
 
 
 
