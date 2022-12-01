@@ -24,22 +24,50 @@ const router = createRouter({history,routes })
 
 fetchMe() //请求me接口
 
-// 用router.beforeEach函数实现路由的拦截作用
-router.beforeEach( async (to, from ) => {
-    //函数内容：当路径是非if条件中的，则promise请求me接口
-    if (to.path === '/' || to.path.startsWith('./welcome')||
-    to.path.startsWith('/sign_in') || to.path === '/start') {
-        return true
-    } else {
-        // 不满足条件，则把路由路径拼接到字符串sign_in上
-        const path  = await mePromise!.then(
+// // 用router.beforeEach函数实现路由的拦截作用
+// router.beforeEach( async (to, from ) => {
+//     //函数内容：当路径是非if条件中的，则promise请求me接口
+//     if (to.path === '/' || to.path.startsWith('./welcome')||
+//     to.path.startsWith('/sign_in') || to.path === '/start') {
+//         return true
+//     } else {
+//         // 不满足条件，则把路由路径拼接到字符串sign_in上
+//         const path  = await mePromise!.then(
+//             () => true,
+//             () => 'sign_in?return_to' + to.path
+//         )
+//         return path
+
+// 规定whiteList是对象，且键必须是字符串，值只能是规定的值
+    const whiteList:Record<string, 'exact' | 'startsWith'> = {
+        '/': 'exact',
+        '/start':'exact',
+        '/welcome':'startsWith',
+        'sign_in':'startsWith',
+
+    }
+
+    // 用router.beforeEach函数实现路由的拦截作用
+    router.beforeEach( (to,from) => {
+        for (const key in whiteList) {
+            const value = whiteList[key]
+            if ( key === to.path &&value === 'exact') {
+                return true
+            }
+            if (value === 'startsWith' && to.path.startsWith(key)) {
+                return true
+            } 
+        }
+        return mePromise!.then(
             () => true,
             () => 'sign_in?return_to' + to.path
         )
-        return path
-    }
-})
+    } )
 
+   
+
+
+    
 
 
 
