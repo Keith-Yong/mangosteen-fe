@@ -40,7 +40,13 @@ export const SignInPage = defineComponent({
       ]))
       // errors对象为空，点击登录按钮，发送session接口请求并保存jwt
       if(!hasError(errors)) {
-        const response = await http.post<{jwt:string;}>('/session', formData)
+        const response = await http.post<{jwt:string;}>('/session', formData,{
+          params: {_mock:'session'}
+        } ).catch(onError)
+       
+
+
+
         localStorage.setItem('jwt', response.data.jwt) //jwt存放到 localStorage上
         // history.push('/') //把路由重置到首页
         const returnTo = route.query.return_to?.toString() //return_to是一个可选参数，如果在未登录下，从其他页面访问，则会跳转到首页，bi
