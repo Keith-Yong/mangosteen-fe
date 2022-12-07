@@ -40,9 +40,7 @@ export const SignInPage = defineComponent({
       ]))
       // errors对象为空，点击登录按钮，发送session接口请求并保存jwt
       if(!hasError(errors)) {
-        const response = await http.post<{jwt:string;}>('/session', formData,{
-          params: {_mock:'session'}
-        } ).catch(onError)
+        const response = await http.post<{jwt:string;}>('/session', formData, ).catch(onError)
        
 
 

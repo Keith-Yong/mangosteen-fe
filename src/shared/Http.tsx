@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosProxyConfig, AxiosRequestConfig, AxiosResponse } from "axios";
-import { mockSession } from "../mock/mock";
+import { mockSession,mockTagIndex  } from "../mock/mock";
 type JSONValue = string | number |null |boolean |JSONValue[] | {[key:string]: JSONValue}
 
 //声明请求方法的变量 及类型
@@ -59,14 +59,14 @@ const mock = (response:AxiosResponse)  => {
         case 'tagIndex':
             [response.status, response.data] = mockTagIndex(response.config)
             return true
-        case 'itemCreate':
-            [response.status, response.data] = mockItemIndex(response.config)
-            return true
-        case 'itemIndex':
-            [response.status, response.data] = mockItemIndex(response.config)
-            return true
-        case 'tagCreate':
-            [response.status, response.data] = mockTagCreate(response.config)
+        // case 'itemCreate':
+        //     [response.status, response.data] = mockItemIndex(response.config)
+        //     return true
+        // case 'itemIndex':
+        //     [response.status, response.data] = mockItemIndex(response.config)
+        //     return true
+        // case 'tagCreate':
+        //     [response.status, response.data] = mockTagCreate(response.config)
         case 'session':
             [response.status ,response.data] = mockSession(response.config)
             return true
@@ -82,7 +82,7 @@ http.instance.interceptors.request.use( config => {
     
     const jwt = localStorage.getItem('jwt')
     if (jwt) {
-        config.headers!.Authorization = `Bearer $ {jwt}`
+        config.headers!.Authorization = `Bearer ${jwt}`
     }
     return config
 }
