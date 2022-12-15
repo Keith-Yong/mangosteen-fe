@@ -7,14 +7,12 @@ import { DatetimePicker,NumberKeyboard, Popup } from "vant";
 /**键盘数字 */
 export const InputPad =defineComponent({
     props: {
-        name: {
-            type: String as PropType<string>
-        }
+        happenAt: String,
+        amount: Number
     },
     setup: (props,context) => {
        
-        const now = new Date()//？？??
-        const refDate = ref<Date>(now) //？？??
+       
         //  appendText函数传入数字或字符串都转化为字符串
         // const appendText = (n:number | string) => refAmount.value += n.toString()
         const appendText = (n:number | string) => {
@@ -61,15 +59,24 @@ export const InputPad =defineComponent({
             {text:'.',onClick: () => {appendText('.')}},
             {text:'0',onClick: () => { appendText(0)}},
             {text:'清空', onClick: () => {refAmount.value = '0' } }, //清空即置0
-            {text:'提交', onClick: () => { } },
+             {
+        text: '提交',
+        onClick: () => context.emit('update:amount',
+          parseFloat(refAmount.value) * 100)
+      },
             
         ]
 
         const refDatePickerVisible = ref(false)
         const showDatePicker = () => refDatePickerVisible.value = true
         const hideDatePicker = () => refDatePickerVisible.value = false
-        const setDate = (date: Date) => { refDate.value = date; hideDatePicker() }
-        const refAmount = ref('0') //键盘上显示的数字初始值为0
+        // const setDate = (date: Date) => { refDate.value = date; hideDatePicker() }
+        // const refAmount = ref('0') //键盘上显示的数字初始值为0
+        const setDate = (date: Date) => {
+            context.emit('update:happenAt', date.toISOString());
+            hideDatePicker()
+          }
+          const refAmount = ref(props.amount ? (props.amount / 100).toString() : '0') 
         return () => 
         <>
             <div  class={s.dateAndAmount}>
@@ -80,9 +87,9 @@ export const InputPad =defineComponent({
                             {/* {不懂？？??} */}
                             {/* 使用vant的Popup和DatetimePicker组件实现日期选择器的功能 */}
                             
-                            <span onClick={showDatePicker}>{new Time(refDate.value).format()}</span>
+                            <span onClick={showDatePicker}>{new Time(props.happenAt).format()}</span>
                             <Popup position="bottom" v-model:show={refDatePickerVisible.value}>
-                                <DatetimePicker v-model={refDate.value} type="date"
+                                <DatetimePicker value={props.happenAt} type="date"
                                 title="选择年月日" onConfirm={setDate} onCancel={hideDatePicker}
                                 />
                             </Popup>

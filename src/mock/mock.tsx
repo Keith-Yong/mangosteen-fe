@@ -15,6 +15,11 @@ export const mockSession: Mock = (config) => {
 ]
 }
 
+let id = 0
+    const createId = () => {
+        id += 1
+        return id
+    }
 
 export const mockTagIndex:Mock = (config) => {
 
@@ -23,11 +28,7 @@ export const mockTagIndex:Mock = (config) => {
     const per_page = 25
     const count = 26
 
-    let id = 0
-    const createId = () => {
-        id += 1
-        return id
-    }
+    
     
     // 函数功能:创建 页
     const createPaper = (page =1) => (
