@@ -17,12 +17,25 @@ export const mockSession: Mock = (config) => {
 
 
 export const mockTagIndex:Mock = (config) => {
+
+    // 定义变量
+    const { kind, page} = config.params
+    const per_page = 25
+    const count = 26
+
     let id = 0
     const createId = () => {
         id += 1
         return id
     }
+    
+    // 函数功能:创建 页
+    const createPaper = (page =1) => (
+        {page ,per_page, count}
+    )
 
+    
+    // 函数功能:用空伪数组转换为数组,再map出新数组,结合faker自带的api生成tags标签
     const createTag = (n = 1, attrs?: any) =>
         Array.from( { length: n}).map( () => (
             {
@@ -34,10 +47,22 @@ export const mockTagIndex:Mock = (config) => {
                 
             }))
 
-    if (config.params.kind === 'expenses') {
-        return [200, {resources:createTag(7)}]
-    } else {
-        return [200, {resources:createTag(20)}]
+    //  函数功能:定义resources和pager变量的值
+    const createBody = (n =1, attrs?:any) => ({
+        resources: createTag(n), pager: createPaper(page)
+    })
+
+            
+            //根据传入的不同kind值传入不同的数字
+    if (config.params.kind === 'expenses' && (page === 1 || !page)) {
+        return [200,createBody(25)]
+    } else if( kind === 'expenses' && page === 2){
+        return [200, createBody(1)]
+    } else if ( kind === 'income' && (!page || page === 1)) {
+        return [200, createBody(25)]
+    }
+    else {
+        return [200 , createBody(1)]
     }
 
         

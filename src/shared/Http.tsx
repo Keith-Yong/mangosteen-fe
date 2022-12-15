@@ -31,7 +31,11 @@ export  class Http {
     }
 // read get请求函数
 get<R=unknown>(url:string, query?:Record<string, JSONValue>, config?: Getconfig) {
-  return this.instance.request<R>( {...config, url:url, params:query, method: 'get'})
+    console.log('url',url)
+    console.log('query',query)
+    console.log('config',config)
+    //设置了config对象
+  return this.instance.request<R>( {...config, url:url, params:query, method: 'get'}) //instance的request发送请求需要传对象config
 }
 
 //  creat post请求
@@ -50,13 +54,16 @@ delete<R = unknown>(url: string, query?: Record<string, string>, config?: Delete
   }
 } 
 
+
 // mock的逻辑
-const mock = (response:AxiosResponse)  => {
+const mock = (response:AxiosResponse)  => { 
     //只有在本地环境情况下才进行mock处理
     if (!['localhost', '127.0.0.1', '192.168.3.57'].includes(location.hostname)) {return false} 
     // 根据不同的case获取不同的数据
-    switch (response.config?.params?._mock) {
+    switch (response.config?.params?._mock) { //通过response获取config
+        
         case 'tagIndex':
+            console.log('response.config?.params?',response.config),
             [response.status, response.data] = mockTagIndex(response.config)
             return true
         // case 'itemCreate':

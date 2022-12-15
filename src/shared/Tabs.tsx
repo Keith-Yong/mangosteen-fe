@@ -46,7 +46,10 @@ export const Tabs = defineComponent({
                 </ol>
                 <div>
                     {/* 找到符合条件的元素就返回，这里是返回整个tab标签 */}
-                    {tabs.find(item => item.props?.name === props.selected)}
+                    {/* {tabs.find(item => item.props?.name === props.selected)} */}
+                    {tabs.map(item =>
+            <div v-show={item.props?.name === props.selected}>{item}</div>
+          )}
                 </div>
 
             </div>
