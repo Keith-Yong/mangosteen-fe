@@ -1,4 +1,4 @@
-/// <reference types="vite/client" />
+// <reference types="vite/client" />
 
 declare module '*.vue' {
   import type { DefineComponent } from 'vue'
@@ -6,6 +6,13 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+
+declare module '*.scss' {
+  const content: Record<string, any>
+  export default content
+}
+
+
 // // JSONValue可以是规定的值,也可以是字典,字典内键是字符串,值是规定的值{[T in string]: JSONValue}
 type JSONValue = null | boolean | string | number | JSONValue[] | {[T in string]: JSONValue}
 
@@ -15,6 +22,15 @@ type Tag = {
   name: string,
   sign: string,
   kind: 'expenses' | 'income',
+}
+
+type Item = {
+  id: number
+  user_id: number
+  amount: number
+  tags_id: number[]
+  happen_at: string
+  kind: 'expenses' | 'income'
 }
 
 // 
@@ -27,4 +43,12 @@ type Resources<T = any> ={
       count: number
     
   }
+}
+
+type Resource<T> = {
+  resource: T
+}
+
+type ResourceError = {
+  errors: Record<string, string[]>
 }

@@ -66,14 +66,7 @@ const mock = (response:AxiosResponse)  => {
             console.log('response.config?.params?',response.config),
             [response.status, response.data] = mockTagIndex(response.config)
             return true
-        // case 'itemCreate':
-        //     [response.status, response.data] = mockItemIndex(response.config)
-        //     return true
-        // case 'itemIndex':
-        //     [response.status, response.data] = mockItemIndex(response.config)
-        //     return true
-        // case 'tagCreate':
-        //     [response.status, response.data] = mockTagCreate(response.config)
+       
         case 'session':
             [response.status ,response.data] = mockSession(response.config)
             return true
@@ -99,18 +92,23 @@ http.instance.interceptors.request.use( config => {
 // 错误拦截器  使用interceptors
 http.instance.interceptors.response.use( response => {
     mock(response)//调用mock函数处理 response
-    return response
-},(error) => {
-    if(mock(error.response)) { //返回的是error同样做mock处理
-       return error.response
+    if (response.status >= 400) {
+        throw { response }
     } else {
+        return response
+  }
+}, (error) => {
+  mock(error.response)
+  if (error.response.status >= 400) {
     throw error
+    } else {
+    return error.response
 }
 })
 
 // 请求过多时进行拦截 并返回弹窗字符'你太频繁了'
 http.instance.interceptors.response.use(
-    response => response,
+    response => { return response },
     // error是自定义变量,本函数是回调函数,在use函数内部执行
     error => {
         if (error.response) {

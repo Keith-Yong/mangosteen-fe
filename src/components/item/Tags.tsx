@@ -3,7 +3,8 @@ import { defineComponent, PropType } from "vue";
 import { http } from "../../shared/Http";
 import { useTags } from "../../shared/useTags";
 import { Button } from '../../shared/Button';
-import s from './ItemCreate.module.scss';
+import s from './Tags.module.scss';
+import { RouterLink } from 'vue-router';
 
 export const Tags = defineComponent({
     props: {
@@ -29,14 +30,14 @@ export const Tags = defineComponent({
 
         return () => <>
         <div class={s.tags_wrapper}>
-        <div class={s.tag}>
+        {/* 把kind属性添加到路径的查询参数上拼接 */}
+        <RouterLink to={`/tags/create?kind=${props.kind}`} class={s.tag}>
           <div class={s.sign}>
             <Icon name="add" class={s.createTag} />
           </div>
-          <div class={s.name}>
-            新增
-          </div>
-        </div>
+          <div class={s.name}>新增</div>
+          </RouterLink>
+        
         {tags.value.map(tag =>
              <div class={[s.tag, props.selected === tag.id ? s.selected : '']}
             onClick={() => onSelect(tag)}

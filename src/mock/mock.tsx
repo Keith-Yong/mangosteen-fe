@@ -6,6 +6,23 @@ type Mock = (config:AxiosRequestConfig) => [number, any] // 声明Mock的类型
 
 faker.setLocale('zh_CN'); // 设置语言
 
+
+export const mockItemCreate: Mock = config => {
+    return [200, {
+      resource: {
+        "id": 2264,
+        "user_id": 1312,
+        "amount": 9900,
+        "note": null,
+        "tags_id": [3508],
+        "happen_at": "2020-10-29T16:00:00.000Z",
+        "created_at": "2022-07-03T15:35:56.301Z",
+        "updated_at": "2022-07-03T15:35:56.301Z",
+        "kind": "expenses"
+      }
+    }]
+  }
+
 // Mock返回jwt的数据格式
 export const mockSession: Mock = (config) => {
     return [200,
