@@ -4,6 +4,7 @@ import { Button, Dialog } from "vant";
 import { defineComponent, onMounted, PropType, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { MainLayout } from "../../layouts/MainLayout";
+import { BackIcon } from "../../shared/BackIcon";
 import { http } from "../../shared/Http";
 import { Icon } from "../../shared/Icon";
 import { Tab, Tabs } from "../../shared/Tabs";
@@ -47,7 +48,7 @@ export const ItemCreate = defineComponent({
         return () => (
            <MainLayout class={s.layout}>{
               {  title: () => '记一笔', //标题
-              icon:() => <Icon name="left" class={s.navIcon}/>, // 图标
+              icon:() => <BackIcon/>, // 图标
             //   default是什么？？
               default: () => <>  
               {/*  定义Tabs和Tab组件 */}
