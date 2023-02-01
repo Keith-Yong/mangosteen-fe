@@ -11,11 +11,11 @@ const demo = defineComponent({
     props: {
       startDate: {
         type: String as PropType<string>,
-        required: true
+        required: false
       },
       endDate: {
         type: String as PropType<string>,
-        required: true
+        required: false
       }
     },
   })
@@ -32,10 +32,10 @@ export const TimeTabsLayout  =  defineComponent({
         const refSelected = ref('本月')
         const time = new Time()
         //  自定义时间
-        const customTime  = reactive({
-            start: new Time().format(),  
-            end:new Time().format()
-        })
+        const customTime = reactive<{
+          start?: string
+          end?: string
+        }>({})
         // 本月，上月，今年
         const timeList = [
             {
