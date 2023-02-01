@@ -1,6 +1,6 @@
 /**items记账明细页面中 根据不同的时间 切换不同的 内容 */
 import { Button } from "vant";
-import { defineComponent, onMounted, PropType, ref } from "vue";
+import { defineComponent, onMounted, PropType, reactive, ref } from "vue";
 import { Datetime } from "../../shared/Datetime";
 import { FloatButton } from "../../shared/FloatButton";
 import { http } from "../../shared/Http";
@@ -36,6 +36,19 @@ export const  ItemSummary = defineComponent({
         page.value += 1
       }
       onMounted(fetchItems)
+      const itemsBalance = reactive({
+        expenses: 0, income: 0, balance: 0
+      })
+      onMounted(async ()=>{
+        if(!props.startDate || !props.endDate){ return }
+        const response = await http.get('/items/balance', {
+          happen_after: props.startDate,
+          happen_before: props.endDate,
+          page: page.value + 1,
+          _mock: 'itemIndexBalance',
+        })
+        Object.assign(itemsBalance, response.data)
+      })
 
         return () => (
             <div class={s.wrapper}>
@@ -44,15 +57,16 @@ export const  ItemSummary = defineComponent({
             <ul class={s.total}>
               <li>
                 <span>收入</span>
-                <span>128</span>
+                
+                <Money value={itemsBalance.income} />
               </li>
               <li>
                 <span>支出</span>
-                <span>99</span>
+                <Money value={itemsBalance.expenses} />
               </li>
               <li>
                 <span>净收入</span>
-                <span>39</span>
+                <Money value={itemsBalance.balance} />
               </li>
             </ul>
             <ol class={s.list}>

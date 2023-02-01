@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosProxyConfig, AxiosRequestConfig, AxiosResponse } from "axios";
-import { mockItemIndex, mockSession,mockTagEdit,mockTagIndex, mockTagShow  } from "../mock/mock";
+import { mockItemIndex, mockItemIndexBalance, mockSession,mockTagEdit,mockTagIndex, mockTagShow  } from "../mock/mock";
 type JSONValue = string | number |null |boolean |JSONValue[] | {[key:string]: JSONValue}
 
 //声明请求方法的变量 及类型
@@ -81,6 +81,9 @@ const mock = (response:AxiosResponse)  => {
         
         case 'itemIndex':
             [response.status, response.data] = mockItemIndex(response.config)
+            return true
+        case 'itemIndexBalance':
+            [response.status, response.data] = mockItemIndexBalance(response.config)
             return true
     }
     return false
