@@ -1,7 +1,9 @@
 /**组件功能：弹层内容 */
-import { defineComponent, PropType, ref } from "vue";
-import { RouterLink } from "vue-router";
+import { Dialog } from "vant";
+import { defineComponent, onMounted, PropType, ref } from "vue";
+import { RouterLink, useRoute } from "vue-router";
 import { Icon } from "./Icon";
+import { mePromise } from "./me";
 import s from './Overlay.module.scss'
 
 export const Overlay = defineComponent({
@@ -17,8 +19,25 @@ export const Overlay = defineComponent({
         const close = () => {
             props.onClose?.()
         }
-        //  定义一个箭头函数，内容暂时为空
-        const onClickSignIn = () => { }
+        
+        const route = useRoute()
+        const me = ref<User>()
+        // 发送请求
+        onMounted( async () => {
+            const response = await mePromise
+            me.value = response?.data.resource
+        })
+        // 确认弹层
+        const onSignOut = async () => {
+            await Dialog.confirm({
+                title:'确认',
+                message: '你真的要退出登录吗？',
+            })
+            localStorage.removeItem('jwt')
+        }
+        
+
+
         return () => {
             return <>
             {/* //  返回html的结构 ,mask样式在scss文件中 close作为点击事件绑定的函数 ，点击后开启获取关闭弹层*/}
@@ -28,10 +47,21 @@ export const Overlay = defineComponent({
                 <div class={s.overlay}>
                     {/* 弹层的html结构  */}
                     {/* 定义section弹层未登录时的样式 */}
-                    <section class={s.currentUser} onClick={onClickSignIn}>
-                        <h2>未登录用户</h2>
-                        <h2>点击这里登录</h2>
+                    <section class={s.currentUser}>
+                        {me.value ? (
+                            <div>
+                                <h2 class={s.email}>{me.value.email}</h2>
+                                <p onClick={onSignOut}>点击这里退出登录</p>
+                            </div>
+                        ): (
+                        <RouterLink to={`/sign_in?return_to=${route.fullPath}`}>
+                            <h2>未登录用户</h2>
+                            <h2>点击这里登录</h2>
+                         </RouterLink>
+                        )}
                     </section>
+                    
+                   
                     {/* nav标签中包含弹层的svg图片 */}
                     <nav>
                         {/*  定义ul的样式 */}
@@ -83,12 +113,13 @@ export const OverlayIcon  = defineComponent({
             refOverlayVisible.value = !refOverlayVisible.value
           }
 // 返回Icon组件和Overlay组件，设置组件执行的条件
-    return () => <>
+    return () => (
+    <>
                 <Icon name="menu" class={s.icon} onClick={onClickMenu}/>
                 {refOverlayVisible.value && 
                 <Overlay onClose={() => refOverlayVisible.value = false} />
                 }
             </>
-    
+    )
     }
 })

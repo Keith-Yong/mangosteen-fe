@@ -9,6 +9,12 @@
     height:calc(100% - var(--top-safe-area-height)) ;
 }
 
+.email{
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .overlay {
     position: fixed;
    
