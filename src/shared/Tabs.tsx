@@ -12,6 +12,13 @@ export const Tabs = defineComponent({
             required: false,
         },
        
+        rerenderOnSelect: {
+            type: Boolean as PropType<boolean>,
+            default: false
+          }
+
+
+       
     },
     emits: ['update:selected'], //1定义emits的值，数组
     setup: (props, context) => {
@@ -44,14 +51,22 @@ export const Tabs = defineComponent({
                     </li>)}
 
                 </ol>
-                <div>
+                
+                    {props.rerenderOnSelect ?
+                    <div key={props.selected}>
+                        {tabs.find(item=>item.props?.name === props.selected)}
+                    </div>:
+                    <div>
+                        {tabs.map(item =>
+                            <div v-show={item.props?.name === props.selected}>{item}</div>
+                        )}
+                    </div>
+                    }
+
                     {/* 找到符合条件的元素就返回，这里是返回整个tab标签 */}
                     {/* {tabs.find(item => item.props?.name === props.selected)} */}
-                    {tabs.map(item =>
-            <div v-show={item.props?.name === props.selected}>{item}</div>
-          )}
-                </div>
-
+                    
+               
             </div>
 
         }
