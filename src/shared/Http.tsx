@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosProxyConfig, AxiosRequestConfig, AxiosResponse } from "axios";
 import { mockItemIndex, mockItemIndexBalance, mockItemSummary, mockSession,mockTagEdit,mockTagIndex, mockTagShow  } from "../mock/mock";
-type JSONValue = string | number |null |boolean |JSONValue[] | {[key:string]: JSONValue}
+type JSONValue = string | number|undefined |null |boolean |JSONValue[] | {[key:string]: JSONValue}
 
 //声明请求方法的变量 及类型
 // js中的axios不同类型分别需要传递哪些参数??Omit内规定哪些值不需要屏蔽掉
