@@ -1,10 +1,12 @@
 import axios, { AxiosError, AxiosInstance, AxiosProxyConfig, AxiosRequestConfig, AxiosResponse } from "axios";
+import { Toast } from "vant";
 import { mockItemIndex, mockItemIndexBalance, mockItemSummary, mockSession,mockTagEdit,mockTagIndex, mockTagShow  } from "../mock/mock";
 type JSONValue = string | number|undefined |null |boolean |JSONValue[] | {[key:string]: JSONValue}
 
 //声明请求方法的变量 及类型
 // js中的axios不同类型分别需要传递哪些参数??Omit内规定哪些值不需要屏蔽掉
-type Getconfig =  Omit<AxiosProxyConfig, 'params' | 'url' | 'method'> 
+type Getconfig =  Omit<AxiosRequestConfig, 'params' | 'url' | 'method'>
+// type Getconfig =  Omit<AxiosProxyConfig, 'params' | 'url' | 'method'> 
 type PostConfig =  Omit<AxiosRequestConfig, 'url' | 'data' | 'method'>
 type PatchConfig = Omit<AxiosRequestConfig, 'url' | 'data' >
 type DeleteConfig = Omit<AxiosRequestConfig,'params'>
@@ -60,7 +62,7 @@ const mock = (response:AxiosResponse)  => {
     //只有在本地环境情况下才进行mock处理
     if (!['localhost', '127.0.0.1', '192.168.3.57'].includes(location.hostname)) {return false} 
     // 根据不同的case获取不同的数据
-    switch (response.config?.params?._mock) { //通过response获取config
+    switch (response.config?._mock) { //通过response获取config
         
         case 'tagIndex':
             console.log('response.config?.params?',response.config),
@@ -102,10 +104,34 @@ http.instance.interceptors.request.use( config => {
     if (jwt) {
         config.headers!.Authorization = `Bearer ${jwt}`
     }
-    return config
-}
+    // 布尔值为true,展示轻组件 Toast的提示
+    if(config._autoLoading === true){
+        Toast.loading({
+          message: '加载中...',
+          forbidClick: true,
+          duration: 0
+        });
+      }
 
-)
+    
+    return config
+})
+
+//新增一个拦截器，对于成功或失败都直接返回，返回前判断如果隐藏参数为true则关闭加载中组件
+
+http.instance.interceptors.response.use((response)=>{
+    if(response.config._autoLoading === true){ // 问题：response中为什么会有_autoLoading参数
+      Toast.clear();
+    }
+    return response
+  }, (error: AxiosError)=>{
+    if(error.response?.config._autoLoading === true){
+      Toast.clear();
+    }
+    throw error
+  })
+
+
 
 // 错误拦截器  使用interceptors
 http.instance.interceptors.response.use( response => {

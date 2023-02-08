@@ -64,8 +64,10 @@ export const SignInPage = defineComponent({
     //使用axios发起请求
     const onClickSendValidationCode =async () => {
         disabled()
-        const response = await http
-         .post('/validation_codes', { email: formData.email })
+        await http
+         .post('/validation_codes', { email: formData.email },
+         {_autoLoading: true}
+         )
         .catch( onError) //失败的处理，回调onError函数
         .finally(enable)
         // 成功的处理，这里是调用startCount函数
