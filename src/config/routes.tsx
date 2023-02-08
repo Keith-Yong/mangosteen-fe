@@ -21,6 +21,7 @@ import { TagEdit } from "../components/tag/TagEdit";
 import { StatisticsPage } from "../views/StatisticsPage";
 import {SignInPage} from "../views/SignInPage"
 import { http } from "../shared/Http";
+import { ComingSoon } from "../shared/ComingSoon";
 // 新建routes.tsx存放路由
 //  定义组件
 // RouteRecordRaw获得配置子路由的属性children
@@ -72,6 +73,10 @@ export const routes:RouteRecordRaw[] =  [
       },
       {
         path: '/statistics', component: StatisticsPage 
+      },{
+        path: '/export', component: ComingSoon
+      },{
+        path: '/notify', component: ComingSoon
       }
 
 ]
