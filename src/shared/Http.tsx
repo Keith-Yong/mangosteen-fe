@@ -120,7 +120,7 @@ http.instance.interceptors.request.use( config => {
 //新增一个拦截器，对于成功或失败都直接返回，返回前判断如果隐藏参数为true则关闭加载中组件
 
 http.instance.interceptors.response.use((response)=>{
-    if(response.config._autoLoading === true){ // 问题：response中为什么会有_autoLoading参数
+    if(response.config._autoLoading === true){ 
       Toast.clear();
     }
     return response
