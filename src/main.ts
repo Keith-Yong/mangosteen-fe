@@ -41,7 +41,7 @@ fetchMe() //请求me接口
 // 规定whiteList是对象，且键必须是字符串，值只能是规定的值
 const whiteList:Record<string, 'exact' | 'startsWith'> = {
     '/': 'exact',
-    '/start':'exact',
+    '/items':'exact',
     '/welcome':'startsWith',
     '/sign_in':'startsWith',
 

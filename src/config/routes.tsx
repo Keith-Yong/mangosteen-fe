@@ -44,7 +44,7 @@ export const routes:RouteRecordRaw[] =  [
       { path: '4', name:'Welcome4', components: {main:Forth,footer:ForthActions}, },
     ]
  },
-      {path:'/start', component: StartPage},
+     
       {
         path:'/items', component:ItemPage,
         beforeEnter: async (to,from,next) =>{
