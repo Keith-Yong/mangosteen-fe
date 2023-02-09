@@ -45,9 +45,8 @@ export const Button = defineComponent({
       }
     })
     //onClick函数 ，触发后执行props.onClick函数,计时器每5秒设置selfDisabled为false
-    const onClick = () => {
-      
-      props.onClick?.() //从SignInpage传过来的函数
+    const onClick = (e: MouseEvent) => {
+      props.onClick?.(e)
       selfDisabled.value = true
       setTimeout(() => {
         selfDisabled.value = false
