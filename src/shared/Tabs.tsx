@@ -40,10 +40,10 @@ export const Tabs = defineComponent({
             return <div class={[s.tabs, cp+'_tabs']}>
                 <ol class={[s.tabs_nav , cp +'_tabs_nav']}>
                     {/*  map方法把tab传入后*/}
-                    {tabs.map(item => <li class={[item.props?.name === props.selected ? [s.selected,'_tabs_nav'] : '',
+                    {tabs.map(item => <li class={[item.props?.value === props.selected ? [s.selected,cp + '_tabs_nav'] : '',
                     cp + '_tabs_nav_item'
                     ]}
-                        onClick={() => context.emit('update:selected', item.props?.name)}
+                        onClick={() => context.emit('update:selected', item.props?.value)}
                     >
                         {/* props.name获取父组件传进来的值这里是支出或者收入 */}
                         {item.props?.name}
@@ -54,11 +54,11 @@ export const Tabs = defineComponent({
                 
                     {props.rerenderOnSelect ?
                     <div key={props.selected}>
-                        {tabs.find(item=>item.props?.name === props.selected)}
+                        {tabs.find(item=>item.props?.value === props.selected)}
                     </div>:
                     <div>
                         {tabs.map(item =>
-                            <div v-show={item.props?.name === props.selected}>{item}</div>
+                            <div v-show={item.props?.value === props.selected}>{item}</div>
                         )}
                     </div>
                     }
@@ -78,7 +78,12 @@ export const Tabs = defineComponent({
 export const Tab = defineComponent({
     props: {
         name: {
-            type: String as PropType<string>  // 定义一个props属性为name，类型是String
+            type: String as PropType<string>,  // 定义一个props属性为name，类型是String
+            required:true
+        },
+        value: {
+            type: String as PropType<string>,
+            required: true
         }
     },
     setup: (props, context) => {

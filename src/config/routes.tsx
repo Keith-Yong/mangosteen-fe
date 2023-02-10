@@ -33,7 +33,7 @@ export const routes:RouteRecordRaw[] =  [
 
       
       beforeEnter : (to,from,next) => {
-        localStorage.getItem('skipFeatures') === 'yes' ? next('/start') : next()   //next('/start')表示会跳转到/start路径，next()自动执行后面的流程
+        localStorage.getItem('skipFeatures') === 'yes' ? next('/items') : next()   //next('/start')表示会跳转到/start路径，next()自动执行后面的流程
       },
       
       children: [

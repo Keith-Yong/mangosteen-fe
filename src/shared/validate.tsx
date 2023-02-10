@@ -1,7 +1,7 @@
 interface FData  {
     // 除了接口的已知属性之外，还可以存在string | number | null  | undefined或 Fdata类型的任何其他属性
     // FData接口可以把自身作为内部的类型定义吗
-    [k: string]: string | number | null  | undefined | FData 
+    [k: string]:JSONValue
 }
 
 // 校验的规则
@@ -10,7 +10,8 @@ type Rule<T> = {
     message:string
 } & (
     {type: 'required'} | //这里的type自定义的对象属性名称
-    {type :'pattern', regex: RegExp} //RegExp是正则匹配对象
+    { type: 'pattern', regex: RegExp } |
+    { type: 'notEqual', value: JSONValue }
 )
 // 多个校验的规则
 type Rules<T> = Rule<T >[]
@@ -37,7 +38,12 @@ export const validate = <T extends FData>(formData:T, rules:Rules<T>) => {
                 errors[key] = errors[key] ?? [] //如何不存在则让它为空值
                 errors[key]?.push(message)  //{'nam e': ['必填',]}
              }
-             break
+                break;
+             case 'notEqual':
+                if (!isEmpty(value) || value === rule.value) {
+                errors[key] = errors[key] ?? []
+                errors[key]?.push(message)
+                }
             default:
              return
         }
