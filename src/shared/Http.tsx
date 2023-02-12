@@ -60,7 +60,7 @@ delete<R = unknown>(url: string, query?: Record<string, string>, config?: Delete
 // mock的逻辑
 const mock = (response:AxiosResponse)  => { 
     //只有在本地环境情况下才进行mock处理
-    if ( location.hostname !== 'localhost'
+    if (true|| location.hostname !== 'localhost'
     && location.hostname !== '127.0.0.1'
     && location.hostname !== '192.168.3.57') { return false }
     // 根据不同的case获取不同的数据
