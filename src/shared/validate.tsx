@@ -25,6 +25,7 @@ export const validate = <T extends FData>(formData:T, rules:Rules<T>) => {
        
         [k in keyof T]?:string[]  
     }
+    console.log('formData',formData)
     const errors: Errors = {} //初始化Errors为空对象
     // rules
     rules.map( rule => { //把rule传入{ key: 'name', type: 'required', message: '必填' } 
@@ -40,18 +41,19 @@ export const validate = <T extends FData>(formData:T, rules:Rules<T>) => {
              }
                 break;
             case 'notEqual':
-             if (!isEmpty(value) || value === rule.value) {
-                errors[key] = errors[key] ?? []
-                errors[key]?.push(message)
-                }
+                if (!isEmpty(value) && value === rule.value) {
+                    errors[key] = errors[key] ?? []
+                    errors[key]?.push(message)
+                    }
+                break;
             default:
-             return
+            return
         }
     })
     return errors  //返回errors
 }
 
-function isEmpty(value: null | undefined | string | number | FData ) {
+function isEmpty(value?: JSONValue  ) {
     return value === null || value === undefined || value === ''
 }
 
