@@ -39,8 +39,8 @@ export const validate = <T extends FData>(formData:T, rules:Rules<T>) => {
                 errors[key]?.push(message)  //{'nam e': ['必填',]}
              }
                 break;
-             case 'notEqual':
-                if (!isEmpty(value) || value === rule.value) {
+            case 'notEqual':
+             if (!isEmpty(value) || value === rule.value) {
                 errors[key] = errors[key] ?? []
                 errors[key]?.push(message)
                 }
