@@ -8,7 +8,7 @@ type State = {
   }
 
   type Actions = {
-    reset: () => void
+    // reset: () => void
     _fetch: (firstPage: boolean, startDate?: string, endDate?: string) => void
     fetchItems: (startDate?: string, endDate?: string) => void
     fetchNextPage: (startDate?: string, endDate?: string) => void
@@ -23,11 +23,11 @@ type State = {
           page: 0
         }),
         actions: {
-          reset() {
-            this.items = []
-            this.hasMore = false
-            this.page = 0
-          },
+        //   reset() {
+        //     this.items = []
+        //     this.hasMore = false
+        //     this.page = 0
+        //   },
           async _fetch(firstPage, startDate, endDate) {
             if (!startDate || !endDate) {
               return
