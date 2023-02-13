@@ -8,7 +8,9 @@ import { history } from './shared/history';
 
 
 import '@svgstore';
-import { fetchMe, mePromise } from './shared/me';
+
+import { createPinia } from 'pinia';
+import { useMeStore } from './stores/useMestore';
 // 在main.js内
 // import VConsole from 'vconsole';
 // const isDebug = true;
@@ -22,7 +24,15 @@ import { fetchMe, mePromise } from './shared/me';
 // `routes: routes` 的缩写
 const router = createRouter({history,routes })
 
-fetchMe() //请求me接口
+const pinia = createPinia()
+const app = createApp(App)
+app.use(router)
+app.use(pinia)
+app.mount('#app')
+
+const meStore = useMeStore()
+meStore.fetchMe()//请求me接口
+
 
 // // 用router.beforeEach函数实现路由的拦截作用
 // router.beforeEach( async (to, from ) => {
@@ -58,7 +68,7 @@ router.beforeEach( (to,from) => {
             return true
         } 
     }
-    return mePromise!.then(
+    return meStore.mePromise!.then(
         () => true,
         () => '/sign_in?return_to=' + to.path
     )
@@ -71,13 +81,4 @@ router.beforeEach( (to,from) => {
 
 
 
-
-
-// createApp(App).mount('#app')
-const app = createApp(App)
-// 5. 创建并挂载根实例
-app.use(router)
-// 挂载
-
-app.mount('#app')
 

@@ -2,8 +2,9 @@
 import { Dialog } from "vant";
 import { defineComponent, onMounted, PropType, ref } from "vue";
 import { RouterLink, useRoute } from "vue-router";
+import { useMeStore } from "../stores/useMestore";
 import { Icon } from "./Icon";
-import { mePromise } from "./me";
+
 import s from './Overlay.module.scss'
 
 export const Overlay = defineComponent({
@@ -15,8 +16,10 @@ export const Overlay = defineComponent({
         }
     },
     setup:(props, context) => {
+        const meStore = useMeStore()
         //  close函数内获取并调用onClose函数，可选
         const close = () => {
+
             props.onClose?.()
         }
         
@@ -24,7 +27,7 @@ export const Overlay = defineComponent({
         const me = ref<User>()
         // 发送请求
         onMounted( async () => {
-            const response = await mePromise
+            const response = await meStore.mePromise
             me.value = response?.data.resource
         })
         // 确认弹层
