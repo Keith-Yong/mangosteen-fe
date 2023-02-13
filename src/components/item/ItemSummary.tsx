@@ -2,6 +2,7 @@
 import { Button } from "vant";
 import { defineComponent, onMounted, PropType, reactive, ref, watch } from "vue";
 import { RouterLink } from "vue-router";
+import { useAfterMe } from "../../hooks/useAfterMe";
 import { Center } from "../../shared/Center";
 import { Datetime } from "../../shared/Datetime";
 import { FloatButton } from "../../shared/FloatButton";
@@ -40,7 +41,7 @@ export const  ItemSummary = defineComponent({
         hasMore.value = (pager.page - 1) * pager.per_page + resources.length < pager.count
         page.value += 1
       }
-      onMounted(fetchItems)
+      useAfterMe(fetchItems)
 
       watch(()=>[props.startDate,props.endDate], ()=>{
         items.value = []
@@ -64,7 +65,7 @@ export const  ItemSummary = defineComponent({
         })
         Object.assign(itemsBalance, response.data)
       }
-      onMounted(fetchItemsBalance)
+      useAfterMe(fetchItemsBalance)
       watch(()=>[props.startDate,props.endDate], ()=>{
         Object.assign(itemsBalance, {
           expenses: 0, income: 0, balance: 0
