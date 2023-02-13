@@ -9,7 +9,7 @@ import { history } from './shared/history';
 
 import '@svgstore';
 
-import { createPinia } from 'pinia';
+import { createPinia, storeToRefs } from 'pinia';
 import { useMeStore } from './stores/useMestore';
 // 在main.js内
 // import VConsole from 'vconsole';
@@ -31,6 +31,8 @@ app.use(pinia)
 app.mount('#app')
 
 const meStore = useMeStore()
+//pinia的State数据需要通过storeToRefs函数才能解构赋值
+const {mePromise} = storeToRefs(meStore)
 meStore.fetchMe()//请求me接口
 
 
@@ -68,7 +70,7 @@ router.beforeEach( (to,from) => {
             return true
         } 
     }
-    return meStore.mePromise!.then(
+    return mePromise!.value!.then(
         () => true,
         () => '/sign_in?return_to=' + to.path
     )
