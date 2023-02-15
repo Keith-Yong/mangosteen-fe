@@ -35,7 +35,7 @@ export const Tags = defineComponent({
         const currentTag = ref<HTMLDivElement>()
         const router = useRouter()
         const onLongPress = ( tagId: Tag['id']) => {
-          router.push(`/tags/${tagId}/edit?kind=${props.kind}&return_to=${router.currentRoute.value.fullPath}`)
+          router.push(`/tags/${tagId}/edit?kind=${props.kind}`)
         }
 
         // 触发时开始计时
