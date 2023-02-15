@@ -47,15 +47,15 @@ export const routes:RouteRecordRaw[] =  [
      
       {
         path:'/items', component:ItemPage,
-        beforeEnter: async (to,from,next) =>{
-         await http.get('/me').catch( () => { //在请求items路由时调用get('/me')，如果请求失败路由将变成sign_in?return_to+目标路由，成功则走next()
-             next('sign_in?return_to' + to.path)
-          })
+        // beforeEnter: async (to,from,next) =>{
+        //  await http.get('/me').catch( () => { //在请求items路由时调用get('/me')，如果请求失败路由将变成sign_in?return_to+目标路由，成功则走next()
+        //      next('sign_in?return_to=' + to.path)
+        //   })
 
-          next()
+        //   next()
 
           
-        },
+        // },
         children:[
           {path:'', component:ItemList },
           {path:'create', component:ItemCreate},

@@ -5,7 +5,7 @@ export const ForthActions = () => (
   <div class={s.actions}>
     {/* <RouterLink class={s.fake} to="/start" >跳过</RouterLink> */}
     <SkipFeatures class={s.fake}/>
-    <RouterLink to="/start" >完成</RouterLink>
+    <RouterLink to="/items" >完成</RouterLink>
     {/* <RouterLink class={s.fake} to="/start" >跳过</RouterLink> */}
     <SkipFeatures/> 
   </div>

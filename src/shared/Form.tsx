@@ -114,7 +114,7 @@ export const FormItem = defineComponent({
           return <>
 
             <select class={[s.formItem, s.select]} value={props.modelValue}
-              onChange={(e: any) => { context.emit('update:modelValue'), e.target.value }}>
+              onChange={(e: any) => { context.emit('update:modelValue', e.target.value )}}>
               {props.options?.map(option =>
                 <option value={option.value}>{option.text}</option>
               )}

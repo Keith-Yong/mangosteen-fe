@@ -115,17 +115,14 @@ export const Charts = defineComponent({
        
         
     return () => (
-           
             <div>
                 <FormItem label="类型" type="select" options={[
                     {value:'expenses',text:'支出'},
                     {value:'income',text:'收入'}
-                ]} v-model={kind.value} />
+                ]} v-model={kind.value}/>
                 <LineChart data = {betterData1.value}/>
                 <PitChart data={betterData2.value}/>
                 <Bars data={betterData3.value}/>
-                
-               
             </div>
         )
     }

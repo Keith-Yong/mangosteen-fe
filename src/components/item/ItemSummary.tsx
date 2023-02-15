@@ -1,8 +1,8 @@
 /**items记账明细页面中 根据不同的时间 切换不同的 内容 */
-import { Button } from "vant";
-import { defineComponent, onMounted, PropType, reactive, ref, watch } from "vue";
+import { defineComponent, PropType, reactive, ref, watch } from "vue";
 import { RouterLink } from "vue-router";
 import { useAfterMe } from "../../hooks/useAfterMe";
+import { Button } from "../../shared/Button";
 import { Center } from "../../shared/Center";
 import { Datetime } from "../../shared/Datetime";
 import { FloatButton } from "../../shared/FloatButton";
