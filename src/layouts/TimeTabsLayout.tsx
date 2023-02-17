@@ -68,14 +68,17 @@ export const TimeTabsLayout  =  defineComponent({
                 end:time.lastDayOfYear()
             }
         ]
-      
+    
 
       const refOverlayVisible = ref(false)
       //触发该函数，修改refOverlayVisible值为false
       const onSubmitCustomTime = (e:Event) => {
         e.preventDefault()
-        refOverlayVisible.value =false
-        Object.assign(customTime, tempTime)
+        refOverlayVisible.value = false
+        customTime.start = tempTime.start
+        customTime.end = tempTime.end
+        
+        // console.log(tempTime, customTime)
       }
 
       // 触发该函数，修改refOverlayVisible值为true
@@ -126,7 +129,7 @@ export const TimeTabsLayout  =  defineComponent({
                     <props.component startDate={timeList[2].start.format()} endDate={timeList[2].end.format()} />
                   </Tab>
                   <Tab value="自定义时间" name="自定义时间">
-                    <props.component startDate={customTime.start} endDate={customTime.end} />
+                    <props.component startDate={customTime.start} endDate={customTime.end} key={customTime.start || '' + customTime.end}/>
                   </Tab>
                 </Tabs>
               )

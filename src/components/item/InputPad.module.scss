@@ -44,7 +44,7 @@
     >button {
         border: none;
         
-        background: var(--number-button-bg);
+        background: var(--inputPad-button-bg);
         &:nth-child(1) {
           grid-area: n1;
         }

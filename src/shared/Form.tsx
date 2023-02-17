@@ -77,8 +77,8 @@ export const FormItem = defineComponent({
           count.value = props.countForm //重置为60
         }
       }, 1000)
-    console.log('....')
-    console.log(timer.value)
+    // console.log('....')
+    // console.log(timer.value)
 
     context.expose({ startCount }) //使用expose导出组件内的函数
 

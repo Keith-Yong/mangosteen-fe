@@ -30,7 +30,7 @@ export const SignInPage = defineComponent({
     const route  = useRoute()
     
     const onSubmit = async (e: Event) => {
-      console.log('submit')
+      // console.log('submit')
       e.preventDefault()
       Object.assign(errors, {
         email: [], code: []
@@ -58,7 +58,7 @@ export const SignInPage = defineComponent({
     }
     const onError = (error: any) => {
       if (error.response.status === 422) {
-        console.log('errors',errors)
+        // console.log('errors',errors)
         Object.assign(errors, error.response.data.errors)
       }
       throw error

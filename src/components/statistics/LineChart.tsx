@@ -77,14 +77,17 @@ export const LineChart = defineComponent( {
             ...echartsOption,
             series: [{
               data: props.data,
+             
               type: 'line'
             }]
+            
         });
        
     })
-
+    // console.log('props.data',props.data)
     watch(
         ()=>props.data,
+        
         ()=> {
             chart?.setOption( {
                 series: [{

@@ -37,6 +37,7 @@ export const Overlay = defineComponent({
                 message: '你真的要退出登录吗？',
             })
             localStorage.removeItem('jwt')
+            window.location.reload()
         }
         
 
@@ -54,7 +55,7 @@ export const Overlay = defineComponent({
                         {me.value ? (
                             <div>
                                 <h2 class={s.email}>{me.value.email}</h2>
-                                <p onClick={onSignOut}>点击这里退出登录</p>
+                                <p onClick={onSignOut}>退出登录</p>
                             </div>
                         ): (
                         <RouterLink to={`/sign_in?return_to=${route.fullPath}`}>
@@ -70,14 +71,33 @@ export const Overlay = defineComponent({
                         {/*  定义ul的样式 */}
                         <ul class={s.action_list}>
                             <li>
+                                <RouterLink to="/items/create" class={s.action}>
+                                    {/* <Button class={s.button}>开始记账</Button> */}
+                                    <Icon name="dolphin" class={s.icon} />
+                                    <span>开始记账</span>
+                                </RouterLink>
+                            </li>
+
+                            <li>
+                                <RouterLink to="/items" class={s.action}>
+                                    {/* <Button class={s.button}>开始记账</Button> */}
+                                    <Icon name="pig" class={s.icon} />
+                                    <span>个人账单</span>
+                                </RouterLink>
+                            </li>
+
+
+
+                            <li>
                                 {/* Icon组件规定了必须传name，值的类型必须IconName的值 */}
                                 {/* <Icon name="charts"></Icon><span>统计图表</span> */}
                                 {/*  使用路由包裹svg图片，因为它们是链接。添加样式 */}
                                  <RouterLink to="/statistics" class={s.action}>
-                                    <Icon name="charts" class={s.icon} />
+                                    <Icon name="chart" class={s.icon} />
                                     <span>统计图表</span>
                                 </RouterLink>
                             </li>
+
                             <li>
                                 {/* <Icon name="export"></Icon>
                                 <span>导出数据</span> */}

@@ -40,10 +40,12 @@
       }
   
     &_name {
+      padding: 0px 13px;
     }
     &_value {
       display: flex;
       margin-top: 4px;
+      padding: 0px 12px;
       > * {
         flex-grow: 1;
       }

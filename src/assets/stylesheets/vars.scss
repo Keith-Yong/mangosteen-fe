@@ -3,7 +3,7 @@
     
         --amount-text: #53a867;
         --button-bg-important: #5c33be;
-        --button-bg: #5c33be;
+        --button-bg: blue;
         --button-border-color: #ddd;
         --button-font-size: 18px;
         --button-height: 48px;
@@ -17,7 +17,7 @@
         --error-color: #E10505;
         --float-button-bg: var(--button-bg);
         --float-button-text: white;
-        --input-border-color: #5c33be;
+        --input-border-color: blue;
         --input-min-height: 48px;
         --input-radius: var(--button-radius);
         --input-shadow: rgba(0, 0, 0, 0.25);
@@ -33,9 +33,11 @@
         --overlay-bg: white;
         --overlay-mask-bg: rgba(0, 0, 0, 0.5);
         --tag-bg: #EFEFEF;
-        --overlay-user-bg: #5C33be;
+        --overlay-user-bg: blue;
         --overlay-user-text: white;
         --top-safe-area-height: 24px;
+        --number-button-bg-important:#3d73a2;
+        --button-text-important:white;
 
         --total-bg: #252A43;
        
@@ -44,16 +46,20 @@
 
         --total-expenses: #53A867;
         --transition-duration: 0.5s;
+        --button-border-color:#ddd;
+        
 
         --van-overlay-z-index: 64;
+        --inputPad-button-bg:white;
         
-        --welcome-bg-end: #8f4cd7;
-        --welcome-bg-start: #5d33be;
+        --welcome-bg-end: blue;
+        --welcome-bg-start: #09f;
         --welcome-nav-gap: 8px;
         --welcome-nav-height: 64px;
         --welcome-text: white;
         --z-index-bottom-nav: 8;
         --z-index-overlay: 16;
+        
         --welcome-card-bg: white;
         --button-bg-danger: #E10505;
         --bg: white;

@@ -33,9 +33,9 @@ export  class Http {
     }
 // read get请求函数
 get<R=unknown>(url:string, query?:Record<string, JSONValue>, config?: Getconfig) {
-    console.log('url',url)
-    console.log('query',query)
-    console.log('config',config)
+    // console.log('url',url)
+    // console.log('query',query)
+    // console.log('config',config)
     //设置了config对象
   return this.instance.request<R>( {...config, url:url, params:query, method: 'get'}) //instance的request发送请求需要传对象config
 }

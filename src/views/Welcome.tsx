@@ -19,11 +19,11 @@ export const Welcome = defineComponent({
     setup: (props, context) => {
 
         const main = ref<HTMLElement>()
-        console.log('main', main)
+        // console.log('main', main)
         const { direction, swiping } = useSwipe(main, { beforeStart: e => e.preventDefault() }) //获取滑动方向，是否滑动
 
-        console.log('direction', direction.value)
-        console.log('swiping', swiping.value)
+        // console.log('direction', direction.value)
+        // console.log('swiping', swiping.value)
         const route = useRoute() //获取自定义的路由组件对象
         const router = useRouter() //获取内置的路由器对象
         //  自定义push函数，即throttle函数，实现根据不同的路由名称，

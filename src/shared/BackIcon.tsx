@@ -12,7 +12,7 @@ export const BackIcon = defineComponent({
             if (return_to) {
                 router.push(return_to.toString())
             } else {
-                router.back() // 返回原有页面
+                router.go(-1) // 返回原有页面
             }
         };
         return () => <Icon name="left" onClick={onClick}/>

@@ -25,7 +25,7 @@ export const Tabs = defineComponent({
         return () => {
             //  这里的default是默认的插槽属性，未定义的插槽内容都会放在该属性中
             const tabs = context.slots.default?.()
-            console.log(tabs)
+            // console.log(tabs)
             if (!tabs) return () => null //如果值为空则返回null
             //如果值不为空，则遍历数组，返回值array是数组
             for (let i = 0; i < tabs.length; i++) {

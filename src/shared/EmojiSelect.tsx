@@ -13,7 +13,7 @@ export const EmojiSelect =defineComponent({
         }
       },
       setup: (props, context) => {
-        console.log(emojiList)
+        // console.log(emojiList)
         const refSelected = ref(1)  //
         /** table的类型是？？??*/
         // face-smiling在EmojiSelect组件中是？？??这个table的作用是什么，为什么要这样定义

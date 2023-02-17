@@ -16,8 +16,8 @@ interface Options {
 
 // 定义函数useSwipe,第二个参数可不传类型是自定义的interface
 export const useSwipe = (element: Ref<HTMLElement | undefined>, options?: Options) => {
-    console.log('element',element)
-    console.log('options',options)
+    // console.log('element',element)
+    // console.log('options',options)
     //  鼠标开始
     const start = ref<Point>()
     //  鼠标结束

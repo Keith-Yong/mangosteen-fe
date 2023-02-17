@@ -25,7 +25,7 @@ export const validate = <T extends FData>(formData:T, rules:Rules<T>) => {
        
         [k in keyof T]?:string[]  
     }
-    console.log('formData',formData)
+    // console.log('formData',formData)
     const errors: Errors = {} //初始化Errors为空对象
     // rules
     rules.map( rule => { //把rule传入{ key: 'name', type: 'required', message: '必填' } 
