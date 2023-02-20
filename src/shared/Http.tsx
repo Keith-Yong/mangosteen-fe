@@ -97,8 +97,16 @@ const mock = (response:AxiosResponse)  => {
     
 }
 
+function isDev(){
+  if (location.hostname !== 'localhost'
+    && location.hostname !== '127.0.0.1'
+    && location.hostname !== '192.168.3.57') { return false }
+  return true
+}
 
-export const http = new Http('/api/v1')
+
+//如果不是本地则
+export const http = new Http( isDev() ? '/api/v1' : 'http://121.196.236.94:3000/api/v1')
 //请求拦截器：给请求头添加jwt
 http.instance.interceptors.request.use( config => {
     
