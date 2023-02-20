@@ -7,6 +7,9 @@ declare module '*.vue' {
   export default component
 }
 
+
+declare var DEBUG: boolean
+
 declare module '*.scss' {
   const content: Record<string, any>
   export default content

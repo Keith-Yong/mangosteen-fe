@@ -57,58 +57,60 @@ delete<R = unknown>(url: string, query?: Record<string, string>, config?: Delete
 } 
 
 
-// mock的逻辑
-const mock = (response:AxiosResponse)  => { 
-    //只有在本地环境情况下才进行mock处理
-    if (true|| location.hostname !== 'localhost'
-    && location.hostname !== '127.0.0.1'
-    && location.hostname !== '192.168.3.57') { return false }
-    // 根据不同的case获取不同的数据
-    switch (response.config?._mock) { //通过response获取config
+// // mock的逻辑
+// const mock = (response:AxiosResponse)  => { 
+//     //只有在本地环境情况下才进行mock处理
+//     if (true|| location.hostname !== 'localhost'
+//     && location.hostname !== '127.0.0.1'
+//     && location.hostname !== '192.168.3.57') { return false }
+//     // 根据不同的case获取不同的数据
+//     switch (response.config?._mock) { //通过response获取config
         
-        case 'tagIndex':
-            console.log('response.config?.params?',response.config),
-            [response.status, response.data] = mockTagIndex(response.config)
-            return true
+//         case 'tagIndex':
+//             console.log('response.config?.params?',response.config),
+//             [response.status, response.data] = mockTagIndex(response.config)
+//             return true
        
-        case 'session':
-            [response.status ,response.data] = mockSession(response.config)
-            return true
+//         case 'session':
+//             [response.status ,response.data] = mockSession(response.config)
+//             return true
 
-        case 'tagShow':
-            [response.status, response.data] = mockTagShow(response.config)
-            return true
+//         case 'tagShow':
+//             [response.status, response.data] = mockTagShow(response.config)
+//             return true
 
-        case 'tagEdit':
-            [response.status, response.data] = mockTagEdit(response.config)
-            return true
+//         case 'tagEdit':
+//             [response.status, response.data] = mockTagEdit(response.config)
+//             return true
         
-        case 'itemIndex':
-            [response.status, response.data] = mockItemIndex(response.config)
-            return true
-        case 'itemIndexBalance':
-            [response.status, response.data] = mockItemIndexBalance(response.config)
-            return true
-        case 'itemSummary':
-            [response.status, response.data] = mockItemSummary(response.config)
-            return true
-    }
-    return false
+//         case 'itemIndex':
+//             [response.status, response.data] = mockItemIndex(response.config)
+//             return true
+//         case 'itemIndexBalance':
+//             [response.status, response.data] = mockItemIndexBalance(response.config)
+//             return true
+//         case 'itemSummary':
+//             [response.status, response.data] = mockItemSummary(response.config)
+//             return true
+//     }
+//     return false
     
-}
+// }
 
 function isDev(){
   if (location.hostname !== 'localhost'
     && location.hostname !== '127.0.0.1'
-    && location.hostname !== '192.168.3.57') { return false }
-  return true
+    && location.hostname !== '192.168.3.57') {
+  return false
+}
+return true
 }
 
 
 //如果不是本地则
 export const http = new Http( isDev() ? '/api/v1' : 'http://121.196.236.94:3000/api/v1')
 //请求拦截器：给请求头添加jwt
-http.instance.interceptors.request.use( config => {
+http.instance.interceptors.request.use( (config) => {
     
     const jwt = localStorage.getItem('jwt')
     if (jwt) {
@@ -120,7 +122,7 @@ http.instance.interceptors.request.use( config => {
           message: '加载中...',
           forbidClick: true,
           duration: 0
-        });
+        })
       }
 
     
@@ -129,48 +131,147 @@ http.instance.interceptors.request.use( config => {
 
 //新增一个拦截器，对于成功或失败都直接返回，返回前判断如果隐藏参数为true则关闭加载中组件
 
-http.instance.interceptors.response.use((response)=>{
-    if(response.config._autoLoading === true){ 
-      Toast.clear();
-    }
-    return response
-  }, (error: AxiosError)=>{
-    if(error.response?.config._autoLoading === true){
-      Toast.clear();
-    }
-    throw error
-  })
+// http.instance.interceptors.response.use((response)=>{
+//     if(response.config._autoLoading === true){ 
+//       Toast.clear();
+//     }
+//     return response
+//   }, (error: AxiosError)=>{
+//     if(error.response?.config._autoLoading === true){
+//       Toast.clear();
+//     }
+//     throw error
+//   })
 
 
 
-// 错误拦截器  使用interceptors
-http.instance.interceptors.response.use( response => {
-    mock(response)//调用mock函数处理 response
-    if (response.status >= 400) {
-        throw { response }
-    } else {
-        return response
-  }
-}, (error) => {
-  mock(error.response)
-  if (error.response.status >= 400) {
-    throw error
-    } else {
-    return error.response
-}
-})
-
-// 请求过多时进行拦截 并返回弹窗字符'你太频繁了'
+// // 错误拦截器  使用interceptors
+// http.instance.interceptors.response.use( response => {
+//     mock(response)//调用mock函数处理 response
+//     if (response.status >= 400) {
+//         throw { response }
+//     } else {
+//         return response
+//   }
+// }, (error) => {
+//   mock(error.response)
+//   if (error.response.status >= 400) {
+//     throw error
+//     } else {
 http.instance.interceptors.response.use(
-    response => { return response },
-    // error是自定义变量,本函数是回调函数,在use函数内部执行
-    error => {
-        if (error.response) {
-            const AxiosError = error as AxiosError
-            if (AxiosError.response?.status === 429) {
-                alert('你太频繁了')
-            }
-        }
-        throw error
+  (response) => {
+    if (response.config._autoLoading === true) {
+      Toast.clear()
+      }
+    return response
+  },
+  (error: AxiosError) => {
+    if (error.response?.config._autoLoading === true) {
+      Toast.clear()
     }
+    throw error
+  }
+
+// // 请求过多时进行拦截 并返回弹窗字符'你太频繁了'
+// http.instance.interceptors.response.use(
+//     response => { return response },
+//     // error是自定义变量,本函数是回调函数,在use函数内部执行
+//     error => {
+//         if (error.response) {
+//             const AxiosError = error as AxiosError
+//             if (AxiosError.response?.status === 429) {
+//                 alert('你太频繁了')
+//             }
+//         }
+//         throw error
+//     }
+// )
+)
+
+
+if (DEBUG) {
+  import('../mock/mock').then(
+    ({
+      mockItemCreate,
+      mockItemIndex,
+      mockItemIndexBalance,
+      mockItemSummary,
+      mockSession,
+      mockTagEdit,
+      mockTagIndex,
+      mockTagShow
+    }) => {
+      const mock = (response: AxiosResponse) => {
+        if (
+          true ||
+          (location.hostname !== 'localhost' &&
+            location.hostname !== '127.0.0.1' &&
+            location.hostname !== '192.168.3.57')
+        ) {
+          return false
+        }
+        switch (response.config?._mock) {
+          case 'tagIndex':
+            ;[response.status, response.data] = mockTagIndex(response.config)
+            return true
+          case 'session':
+            ;[response.status, response.data] = mockSession(response.config)
+            return true
+          case 'itemCreate':
+            ;[response.status, response.data] = mockItemCreate(response.config)
+            return true
+          case 'tagShow':
+            ;[response.status, response.data] = mockTagShow(response.config)
+            return true
+          case 'tagEdit':
+            ;[response.status, response.data] = mockTagEdit(response.config)
+            return true
+          case 'itemIndex':
+            ;[response.status, response.data] = mockItemIndex(response.config)
+            return true
+          case 'itemIndexBalance':
+            ;[response.status, response.data] = mockItemIndexBalance(response.config)
+            return true
+          case 'itemSummary':
+            ;[response.status, response.data] = mockItemSummary(response.config)
+            return true
+        }
+        return false
+      }
+      http.instance.interceptors.response.use(
+        (response) => {
+          mock(response)
+          if (response.status >= 400) {
+            throw { response }
+          } else {
+            return response
+          }
+        },
+        (error) => {
+          mock(error.response)
+          if (error.response.status >= 400) {
+            throw error
+          } else {
+            return error.response
+          }
+        }
+      )
+    }
+  )
+}
+http.instance.interceptors.response.use(
+
+  (response) => {
+    return response
+  },
+  (error) => {
+    if (error.response) {
+      const axiosError = error as AxiosError
+      if (axiosError.response?.status === 429) {
+
+        alert('你太频繁了')
+      }
+    }
+    throw error
+  }
 )

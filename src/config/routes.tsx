@@ -29,7 +29,7 @@ export const routes:RouteRecordRaw[] =  [
     {path:'/',redirect:'/welcome'},
     {
       path: '/welcome',
-      component: Welcome,
+      component: ()=> import('../views/Welcome'),
 
       
       beforeEnter : (to,from,next) => {
@@ -46,7 +46,7 @@ export const routes:RouteRecordRaw[] =  [
  },
      
       {
-        path:'/items', component:ItemPage,
+        path:'/items', component:()=> import('../views/ItemPage'),
         // beforeEnter: async (to,from,next) =>{
         //  await http.get('/me').catch( () => { //在请求items路由时调用get('/me')，如果请求失败路由将变成sign_in?return_to+目标路由，成功则走next()
         //      next('sign_in?return_to=' + to.path)
@@ -62,19 +62,19 @@ export const routes:RouteRecordRaw[] =  [
         ]
       },
       {
-        path:'/tags', component:TagPage,
+        path:'/tags', component:()=> import('../views/TagPage'),
         children:[
-          {path:'create', component:TagCreate },
-          {path:':id/edit', component:TagEdit},
+          {path:'create', component:()=> import('../components/tag/TagCreate') },
+          {path:':id/edit', component:()=> import('../components/tag/TagEdit') }
         ]
       },
       {
-        path: '/sign_in',component:SignInPage
+        path: '/sign_in',component:()=> import('../views/SignInPage')
       },
       {
-        path: '/statistics', component: StatisticsPage 
+        path: '/statistics', component: ()=> import('../views/StatisticsPage')
       },{
-        path: '/export', component: ComingSoon
+        path: '/export', component: ()=> import('../shared/ComingSoon')
       },{
         path: '/notify', component: ComingSoon
       }
