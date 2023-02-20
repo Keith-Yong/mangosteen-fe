@@ -112,7 +112,6 @@ export const FormItem = defineComponent({
           </>
         case 'select': //select类型返回的组件标签
           return <>
-
             <select class={[s.formItem, s.select]} value={props.modelValue}
               onChange={(e: any) => { context.emit('update:modelValue', e.target.value )}}>
               {props.options?.map(option =>
